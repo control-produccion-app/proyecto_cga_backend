@@ -67,12 +67,36 @@ WSGI_APPLICATION = 'panaderia_backend.wsgi.application'
 
 # Database configuration
 # Use DATABASE_URL environment variable if available (Railway provides this)
-DATABASE_URL = os.getenv('DATABASE_URL')
-if DATABASE_URL:
+if all(os.getenv(var) for var in ['PGHOST', 'PGPORT', 'PGUSER', 'PGPASSWORD', 'PGDATABASE']):
     DATABASES = {
-        'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=600)
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('PGDATABASE'),
+            'USER': os.getenv('PGUSER'),
+            'PASSWORD': os.getenv('PGPASSWORD'),
+            'HOST': os.getenv('PGHOST'),
+            'PORT': os.getenv('PGPORT', '5432'),
+        }
     }
+elif DATABASE_URL := os.getenv('DATABASE_URL'):
+    # Fallback a DATABASE_URL solo si existe y no tiene placeholders
+    # Si contiene {{...}}, ignórala y usa valores por defecto
+    if '{{' not in DATABASE_URL:
+        DATABASES = {'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=600)}
+    else:
+        # Si tiene placeholders, usar valores por defecto (solo desarrollo)
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.postgresql',
+                'NAME': os.getenv('DB_NAME', 'panaderia_db'),
+                'USER': os.getenv('DB_USER', 'postgres'),
+                'PASSWORD': os.getenv('DB_PASSWORD', 'postgres'),
+                'HOST': os.getenv('DB_HOST', 'localhost'),
+                'PORT': os.getenv('DB_PORT', '5432'),
+            }
+        }
 else:
+    # Configuración por defecto para desarrollo local
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
