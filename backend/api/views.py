@@ -77,7 +77,7 @@ class ClienteViewSet(viewsets.ModelViewSet):
         movimientos = DetalleMovimiento.objects.filter(id_cliente=cliente)
         
         saldo_acumulado = movimientos.aggregate(
-            total_venta=Coalesce(Sum(F('precio_cobrado') * F('kilos'), output_field=DecimalField()), 0),
+            total_venta=Coalesce(Sum(F('precio_cobrado') * F('cantidad_entregada'), output_field=DecimalField()), 0),
             total_pago=Coalesce(Sum('cancelacion', output_field=DecimalField()), 0)
         )
         
@@ -124,7 +124,7 @@ class DetalleMovimientoViewSet(viewsets.ModelViewSet):
         movimientos = DetalleMovimiento.objects.filter(id_jornada_id=jornada_id)
         
         resumen = movimientos.values('id_cliente', 'id_cliente__nombre_cliente').annotate(
-            total_venta=Sum(F('precio_cobrado') * F('kilos')),
+            total_venta=Sum(F('precio_cobrado') * F('cantidad_entregada')),
             total_pago=Sum('cancelacion')
         ).annotate(
             saldo_dia=F('total_venta') - F('total_pago')

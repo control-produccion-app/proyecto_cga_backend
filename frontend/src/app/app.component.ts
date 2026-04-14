@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   template: `
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="authService.isAuthenticated()">
       <div class="container">
         <a class="navbar-brand" routerLink="/dashboard">Panadería</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -30,6 +31,9 @@ import { Component } from '@angular/core';
               <a class="nav-link" routerLink="/bodega" routerLinkActive="active">Bodega</a>
             </li>
             <li class="nav-item">
+              <a class="nav-link" routerLink="/movimientos" routerLinkActive="active">Movimientos</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" routerLink="/reportes" routerLinkActive="active">Reportes</a>
             </li>
           </ul>
@@ -44,8 +48,9 @@ import { Component } from '@angular/core';
   styles: []
 })
 export class AppComponent {
+  constructor(public authService: AuthService) {}
+
   logout() {
-    localStorage.removeItem('token');
-    window.location.href = '/login';
+    this.authService.logout();
   }
 }

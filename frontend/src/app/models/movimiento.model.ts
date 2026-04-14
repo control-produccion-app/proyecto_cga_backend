@@ -7,6 +7,8 @@ export interface DetalleMovimiento {
   id_pedido: number | null;
   precio_cobrado: number;
   descuento_porcentaje_aplicado: number | null;
+  cantidad_entregada: number;
+  unidad_medida: string;
   kilos: number;
   cancelacion: number;
   cliente_nombre?: string;

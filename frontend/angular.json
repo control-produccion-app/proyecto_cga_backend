@@ -20,7 +20,7 @@
             "outputPath": "dist/panaderia",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [],
+            "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
@@ -99,5 +99,8 @@
       }
     }
   },
-  "defaultProject": "panaderia"
+  "defaultProject": "panaderia",
+  "cli": {
+    "analytics": false
+  }
 }

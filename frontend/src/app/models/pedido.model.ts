@@ -14,6 +14,7 @@ export interface DetallePedido {
   id_pedido: number;
   id_producto: number;
   cantidad_solicitada: number;
+  unidad_medida: string;
   precio_cobrado: number;
   descuento_porcentaje_aplicado: number | null;
   producto_nombre?: string;

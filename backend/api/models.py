@@ -11,6 +11,9 @@ class Turno(models.Model):
     
     class Meta:
         db_table = 'turno'
+        constraints = [
+            models.UniqueConstraint(fields=['nombre_turno'], name='unique_turno_nombre')
+        ]
 
 
 class Distribucion(models.Model):
@@ -22,6 +25,9 @@ class Distribucion(models.Model):
     
     class Meta:
         db_table = 'distribucion'
+        constraints = [
+            models.UniqueConstraint(fields=['nombre_distribucion'], name='unique_distribucion_nombre')
+        ]
 
 
 class Insumo(models.Model):
@@ -36,6 +42,12 @@ class Insumo(models.Model):
     
     class Meta:
         db_table = 'insumo'
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(activo__in=['S', 'N']),
+                name='check_insumo_activo'
+            )
+        ]
 
 
 class TipoProduccion(models.Model):
@@ -74,6 +86,9 @@ class Produccion(models.Model):
     class Meta:
         db_table = 'produccion'
         unique_together = ('id_jornada', 'id_tipo_produccion', 'id_turno')
+        indexes = [
+            models.Index(fields=['id_jornada'], name='idx_prod_jornada'),
+        ]
 
 
 class MovimientoBodega(models.Model):
@@ -122,7 +137,7 @@ class ConteoBodega(models.Model):
 
 class Cliente(models.Model):
     id_cliente = models.AutoField(primary_key=True)
-    rut = models.CharField(max_length=10)
+    rut = models.IntegerField(validators=[MinValueValidator(0)])
     digito_verificador = models.CharField(max_length=1)
     nombre_cliente = models.CharField(max_length=200)
     ciudad = models.CharField(max_length=100)
@@ -141,12 +156,26 @@ class Cliente(models.Model):
     
     class Meta:
         db_table = 'cliente'
+        constraints = [
+            models.UniqueConstraint(fields=['rut', 'digito_verificador'], name='unique_cliente_rut_dv')
+        ]
 
 
 class Producto(models.Model):
+    UNIDAD_VENTA_CHOICES = [
+        ('KILO', 'Kilo'),
+        ('UNIDAD', 'Unidad'),
+        ('AMBOS', 'Ambos'),
+    ]
+    
     id_producto = models.AutoField(primary_key=True)
     nombre_producto = models.CharField(max_length=200)
     precio_sugerido = models.DecimalField(max_digits=10, decimal_places=2)
+    unidad_venta_base = models.CharField(
+        max_length=10,
+        choices=UNIDAD_VENTA_CHOICES,
+        default='KILO'
+    )
     id_tipo_produccion = models.ForeignKey(TipoProduccion, on_delete=models.SET_NULL, null=True, db_column='id_tipo_produccion')
     
     def __str__(self):
@@ -154,6 +183,12 @@ class Producto(models.Model):
     
     class Meta:
         db_table = 'producto'
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(unidad_venta_base__in=['KILO', 'UNIDAD', 'AMBOS']),
+                name='check_producto_unidad_venta_base'
+            )
+        ]
 
 
 class Pedido(models.Model):
@@ -168,13 +203,26 @@ class Pedido(models.Model):
     
     class Meta:
         db_table = 'pedido'
+        indexes = [
+            models.Index(fields=['id_cliente'], name='idx_pedido_cliente'),
+        ]
 
 
 class DetallePedido(models.Model):
+    UNIDAD_MEDIDA_CHOICES = [
+        ('KILO', 'Kilo'),
+        ('UNIDAD', 'Unidad'),
+    ]
+    
     id_detalle_pedido = models.AutoField(primary_key=True)
     id_pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE, db_column='id_pedido', related_name='detalles')
     id_producto = models.ForeignKey(Producto, on_delete=models.CASCADE, db_column='id_producto')
     cantidad_solicitada = models.DecimalField(max_digits=10, decimal_places=2)
+    unidad_medida = models.CharField(
+        max_length=10,
+        choices=UNIDAD_MEDIDA_CHOICES,
+        default='KILO'
+    )
     precio_cobrado = models.DecimalField(max_digits=10, decimal_places=2)
     descuento_porcentaje_aplicado = models.DecimalField(
         max_digits=5, 
@@ -189,15 +237,27 @@ class DetallePedido(models.Model):
     
     class Meta:
         db_table = 'detalle_pedido'
+        indexes = [
+            models.Index(fields=['id_pedido'], name='idx_dp_pedido'),
+        ]
         constraints = [
             models.CheckConstraint(
                 check=models.Q(descuento_porcentaje_aplicado__gte=0) & models.Q(descuento_porcentaje_aplicado__lte=100),
                 name='check_descuento_detalle_pedido'
+            ),
+            models.CheckConstraint(
+                check=models.Q(unidad_medida__in=['KILO', 'UNIDAD']),
+                name='check_detalle_pedido_unidad_medida'
             )
         ]
 
 
 class DetalleMovimiento(models.Model):
+    UNIDAD_MEDIDA_CHOICES = [
+        ('KILO', 'Kilo'),
+        ('UNIDAD', 'Unidad'),
+    ]
+    
     id_detalle = models.AutoField(primary_key=True)
     id_jornada = models.ForeignKey(JornadaDiaria, on_delete=models.CASCADE, db_column='id_jornada')
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, db_column='id_cliente')
@@ -212,21 +272,44 @@ class DetalleMovimiento(models.Model):
         null=True,
         blank=True
     )
+    cantidad_entregada = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    unidad_medida = models.CharField(
+        max_length=10,
+        choices=UNIDAD_MEDIDA_CHOICES,
+        default='KILO'
+    )
     kilos = models.DecimalField(max_digits=10, decimal_places=2)
-    cancelacion = models.DecimalField(max_digits=10, decimal_places=2)
+    cancelacion = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     
     def __str__(self):
         return f"Movimiento {self.id_cliente} - {self.id_jornada.fecha}"
     
+    def save(self, *args, **kwargs):
+        # Sincronizar kilos para compatibilidad con frontend existente
+        if self.unidad_medida == 'KILO':
+            self.kilos = self.cantidad_entregada
+        else:
+            self.kilos = 0
+        super().save(*args, **kwargs)
+    
     class Meta:
         db_table = 'detalle_movimiento'
+        indexes = [
+            models.Index(fields=['id_cliente'], name='idx_dm_cliente'),
+            models.Index(fields=['id_jornada'], name='idx_dm_jornada'),
+        ]
         constraints = [
             models.CheckConstraint(
                 check=models.Q(descuento_porcentaje_aplicado__gte=0) & models.Q(descuento_porcentaje_aplicado__lte=100),
                 name='check_descuento_detalle_movimiento'
+            ),
+            models.CheckConstraint(
+                check=models.Q(unidad_medida__in=['KILO', 'UNIDAD']),
+                name='check_detalle_movimiento_unidad_medida'
             )
         ]
     
     @property
     def venta_linea(self):
-        return self.precio_cobrado * self.kilos
+        # Calcula venta basada en cantidad entregada (puede ser kilos o unidades)
+        return self.precio_cobrado * self.cantidad_entregada

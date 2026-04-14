@@ -232,3 +232,31 @@ npm start
 - **Distribución**: Repartidor 1, Repartidor 2, Retiro en panadería, Sala de ventas
 
 
+<<<<<<< HEAD
+=======
+ ## 📦 Despliegue en Producción
+
+El proyecto está configurado para despliegue en:
+- **Frontend**: Vercel (Angular estático)
+- **Backend**: Railway (Django + PostgreSQL)
+- **Base de datos**: PostgreSQL gestionada por Railway
+
+### Instrucciones completas:
+Consulta [DEPLOY.md](DEPLOY.md) para la guía paso a paso de despliegue.
+
+### Archivos de configuración preparados:
+- `backend/Procfile` - Configuración para Railway
+- `backend/runtime.txt` - Versión de Python
+- `backend/railway.json` - Configuración avanzada Railway
+- `frontend/vercel.json` - Proxy y configuración Vercel
+- `backend/.env.example` - Variables de entorno de ejemplo
+
+## 📞 Soporte
+
+- **Issues**: Reportar problemas en el repositorio
+- **Documentación**: Ver `DEPLOY.md` para despliegue
+- **Configuración**: Ver `GUIA_RAPIDA.md` para desarrollo local
+
+## Licencia
+Proyecto académico - Uso educativo
+>>>>>>> 097d289 (Sistema completo para ser subido a vercel)

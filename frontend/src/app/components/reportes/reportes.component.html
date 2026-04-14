@@ -1,5 +1,11 @@
 <h2>Reportes</h2>
 
+<div *ngIf="cargando" class="alert alert-info">Cargando insumos...</div>
+<div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{ error }}
+  <button type="button" class="btn-close" (click)="error = ''"></button>
+</div>
+
 <div class="row mt-4">
   <div class="col-md-6">
     <div class="card">
@@ -7,12 +13,17 @@
         <h5>Stock de Insumo</h5>
       </div>
       <div class="card-body">
-        <div class="input-group mb-3">
-          <input type="number" class="form-control" [(ngModel)]="insumoId" placeholder="ID Insumo">
-          <button class="btn btn-primary" (click)="consultarStock()">Consultar</button>
+        <div class="mb-3">
+          <label>Seleccionar Insumo</label>
+          <select class="form-control" [(ngModel)]="insumoId" [disabled]="cargando">
+            <option *ngFor="let insumo of insumosList" [value]="insumo.id_insumo">
+              {{ insumo.nombre_insumo }} ({{ insumo.id_insumo }})
+            </option>
+          </select>
         </div>
+        <button class="btn btn-primary" (click)="consultarStock()" [disabled]="cargando">Consultar Stock</button>
         
-        <div *ngIf="stockInfo" class="mt-3">
+        <div *ngIf="stockInfo && !stockInfo.error" class="mt-3">
           <table class="table table-bordered">
             <tr>
               <th>Stock Teórico</th>
@@ -33,6 +44,9 @@
               </td>
             </tr>
           </table>
+        </div>
+        <div *ngIf="stockInfo?.error" class="alert alert-danger mt-3">
+          {{ stockInfo.error }}
         </div>
       </div>
     </div>

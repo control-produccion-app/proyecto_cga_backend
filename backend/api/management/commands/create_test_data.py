@@ -56,13 +56,13 @@ class Command(BaseCommand):
         
         # 3. Crear productos comerciales
         productos_data = [
-            {'nombre_producto': 'Pan corriente 1kg', 'precio_sugerido': 2500, 'id_tipo_produccion': tipos_produccion[0]},
-            {'nombre_producto': 'Pan corriente 500g', 'precio_sugerido': 1300, 'id_tipo_produccion': tipos_produccion[0]},
-            {'nombre_producto': 'Pan integral 1kg', 'precio_sugerido': 3200, 'id_tipo_produccion': tipos_produccion[1]},
-            {'nombre_producto': 'Medialunas', 'precio_sugerido': 300, 'id_tipo_produccion': tipos_produccion[3]},
-            {'nombre_producto': 'Facturas surtidas', 'precio_sugerido': 2800, 'id_tipo_produccion': tipos_produccion[3]},
-            {'nombre_producto': 'Torta chocolate', 'precio_sugerido': 12000, 'id_tipo_produccion': tipos_produccion[4]},
-            {'nombre_producto': 'Torta vainilla', 'precio_sugerido': 11000, 'id_tipo_produccion': tipos_produccion[4]},
+            {'nombre_producto': 'Pan corriente 1kg', 'precio_sugerido': 2500, 'unidad_venta_base': 'KILO', 'id_tipo_produccion': tipos_produccion[0]},
+            {'nombre_producto': 'Pan corriente 500g', 'precio_sugerido': 1300, 'unidad_venta_base': 'KILO', 'id_tipo_produccion': tipos_produccion[0]},
+            {'nombre_producto': 'Pan integral 1kg', 'precio_sugerido': 3200, 'unidad_venta_base': 'KILO', 'id_tipo_produccion': tipos_produccion[1]},
+            {'nombre_producto': 'Medialunas', 'precio_sugerido': 300, 'unidad_venta_base': 'UNIDAD', 'id_tipo_produccion': tipos_produccion[3]},
+            {'nombre_producto': 'Facturas surtidas', 'precio_sugerido': 2800, 'unidad_venta_base': 'UNIDAD', 'id_tipo_produccion': tipos_produccion[3]},
+            {'nombre_producto': 'Torta chocolate', 'precio_sugerido': 12000, 'unidad_venta_base': 'UNIDAD', 'id_tipo_produccion': tipos_produccion[4]},
+            {'nombre_producto': 'Torta vainilla', 'precio_sugerido': 11000, 'unidad_venta_base': 'UNIDAD', 'id_tipo_produccion': tipos_produccion[4]},
         ]
         
         productos = []
@@ -77,11 +77,11 @@ class Command(BaseCommand):
         
         # 4. Crear clientes
         clientes_data = [
-            {'rut': '12345678', 'digito_verificador': '9', 'nombre_cliente': 'Supermercado Los Andes', 'ciudad': 'Santiago', 'direccion': 'Av. Principal 123', 'telefono': '+56912345678', 'descuento_aplicado': 5},
-            {'rut': '87654321', 'digito_verificador': '0', 'nombre_cliente': 'Restaurante La Familia', 'ciudad': 'Santiago', 'direccion': 'Calle Secundaria 456', 'telefono': '+56987654321', 'descuento_aplicado': 10},
-            {'rut': '11222333', 'digito_verificador': '4', 'nombre_cliente': 'Cafetería Central', 'ciudad': 'Santiago', 'direccion': 'Plaza Mayor 789', 'telefono': '+56911223344', 'descuento_aplicado': 8},
-            {'rut': '44555666', 'digito_verificador': '7', 'nombre_cliente': 'Hotel Panorámico', 'ciudad': 'Santiago', 'direccion': 'Cerro Alegre 321', 'telefono': '+56944556677', 'descuento_aplicado': 12},
-            {'rut': '77888999', 'digito_verificador': '2', 'nombre_cliente': 'Colegio San José', 'ciudad': 'Santiago', 'direccion': 'Av. Educacional 654', 'telefono': '+56977889900', 'descuento_aplicado': 15},
+            {'rut': 12345678, 'digito_verificador': '9', 'nombre_cliente': 'Supermercado Los Andes', 'ciudad': 'Santiago', 'direccion': 'Av. Principal 123', 'telefono': '+56912345678', 'descuento_aplicado': 5},
+            {'rut': 87654321, 'digito_verificador': '0', 'nombre_cliente': 'Restaurante La Familia', 'ciudad': 'Santiago', 'direccion': 'Calle Secundaria 456', 'telefono': '+56987654321', 'descuento_aplicado': 10},
+            {'rut': 11222333, 'digito_verificador': '4', 'nombre_cliente': 'Cafetería Central', 'ciudad': 'Santiago', 'direccion': 'Plaza Mayor 789', 'telefono': '+56911223344', 'descuento_aplicado': 8},
+            {'rut': 44555666, 'digito_verificador': '7', 'nombre_cliente': 'Hotel Panorámico', 'ciudad': 'Santiago', 'direccion': 'Cerro Alegre 321', 'telefono': '+56944556677', 'descuento_aplicado': 12},
+            {'rut': 77888999, 'digito_verificador': '2', 'nombre_cliente': 'Colegio San José', 'ciudad': 'Santiago', 'direccion': 'Av. Educacional 654', 'telefono': '+56977889900', 'descuento_aplicado': 15},
         ]
         
         clientes = []
@@ -153,10 +153,13 @@ class Command(BaseCommand):
             num_detalles = random.randint(1, 5)
             for j in range(num_detalles):
                 producto = random.choice(productos)
+                # Determinar unidad de medida basada en el producto
+                unidad_medida = 'KILO' if producto.unidad_venta_base in ['KILO', 'AMBOS'] else 'UNIDAD'
                 DetallePedido.objects.create(
                     id_pedido=pedido,
                     id_producto=producto,
                     cantidad_solicitada=Decimal(random.uniform(5, 50)).quantize(Decimal('0.01')),
+                    unidad_medida=unidad_medida,
                     precio_cobrado=producto.precio_sugerido * Decimal('0.95'),  # 5% descuento base
                     descuento_porcentaje_aplicado=pedido.id_cliente.descuento_aplicado
                 )
@@ -168,6 +171,9 @@ class Command(BaseCommand):
             for cliente in random.sample(clientes, min(3, len(clientes))):
                 for _ in range(random.randint(1, 3)):
                     producto = random.choice(productos)
+                    # Determinar unidad de medida basada en el producto
+                    unidad_medida = 'KILO' if producto.unidad_venta_base in ['KILO', 'AMBOS'] else 'UNIDAD'
+                    cantidad_entregada = Decimal(random.uniform(1, 20)).quantize(Decimal('0.01'))
                     movimiento = DetalleMovimiento.objects.create(
                         id_jornada=jornada,
                         id_cliente=cliente,
@@ -176,7 +182,8 @@ class Command(BaseCommand):
                         id_pedido=Pedido.objects.filter(id_cliente=cliente).first() if random.random() > 0.5 else None,
                         precio_cobrado=producto.precio_sugerido * Decimal(str(1 - cliente.descuento_aplicado/100)),
                         descuento_porcentaje_aplicado=cliente.descuento_aplicado,
-                        kilos=Decimal(random.uniform(1, 20)).quantize(Decimal('0.01')),
+                        cantidad_entregada=cantidad_entregada,
+                        unidad_medida=unidad_medida,
                         cancelacion=Decimal(random.uniform(1000, 50000)).quantize(Decimal('0.01'))
                     )
         

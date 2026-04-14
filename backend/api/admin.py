@@ -63,7 +63,7 @@ class ClienteAdmin(admin.ModelAdmin):
 
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
-    list_display = ('id_producto', 'nombre_producto', 'precio_sugerido', 'id_tipo_produccion')
+    list_display = ('id_producto', 'nombre_producto', 'precio_sugerido', 'unidad_venta_base', 'id_tipo_produccion')
     search_fields = ('nombre_producto',)
     list_filter = ('id_tipo_produccion',)
 
@@ -82,13 +82,13 @@ class PedidoAdmin(admin.ModelAdmin):
 
 @admin.register(DetallePedido)
 class DetallePedidoAdmin(admin.ModelAdmin):
-    list_display = ('id_detalle_pedido', 'id_pedido', 'id_producto', 'cantidad_solicitada', 'precio_cobrado', 'descuento_porcentaje_aplicado')
+    list_display = ('id_detalle_pedido', 'id_pedido', 'id_producto', 'cantidad_solicitada', 'unidad_medida', 'precio_cobrado', 'descuento_porcentaje_aplicado')
     list_filter = ('id_producto',)
 
 
 @admin.register(DetalleMovimiento)
 class DetalleMovimientoAdmin(admin.ModelAdmin):
-    list_display = ('id_detalle', 'id_jornada', 'id_cliente', 'id_producto', 'precio_cobrado', 'kilos', 'cancelacion', 'venta_linea')
+    list_display = ('id_detalle', 'id_jornada', 'id_cliente', 'id_producto', 'precio_cobrado', 'cantidad_entregada', 'unidad_medida', 'kilos', 'cancelacion', 'venta_linea')
     list_filter = ('id_jornada', 'id_cliente', 'id_producto')
     ordering = ('-id_jornada__fecha',)
     

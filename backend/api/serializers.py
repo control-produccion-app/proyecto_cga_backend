@@ -104,6 +104,13 @@ class DetalleMovimientoSerializer(serializers.ModelSerializer):
     distribucion_nombre = serializers.CharField(source='id_distribucion.nombre_distribucion', read_only=True)
     jornada_fecha = serializers.DateField(source='id_jornada.fecha', read_only=True)
     venta_linea = serializers.DecimalField(max_digits=20, decimal_places=2, read_only=True)
+    kilos = serializers.DecimalField(
+        max_digits=10, 
+        decimal_places=2, 
+        write_only=True, 
+        required=False,
+        help_text="Para compatibilidad con frontend existente. Si se proporciona, establece cantidad_entregada y unidad_medida='KILO'"
+    )
     
     class Meta:
         model = DetalleMovimiento
@@ -112,4 +119,27 @@ class DetalleMovimientoSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['venta_linea'] = instance.venta_linea
+        # Para compatibilidad: exponer kilos como alias de cantidad_entregada cuando unidad_medida es KILO
+        if instance.unidad_medida == 'KILO':
+            representation['kilos'] = instance.cantidad_entregada
+        else:
+            representation['kilos'] = 0
         return representation
+    
+    def create(self, validated_data):
+        kilos = validated_data.pop('kilos', None)
+        if kilos is not None:
+            validated_data['cantidad_entregada'] = kilos
+            # Solo establecer unidad_medida='KILO' si no se proporciona explícitamente
+            if 'unidad_medida' not in validated_data:
+                validated_data['unidad_medida'] = 'KILO'
+        return super().create(validated_data)
+    
+    def update(self, instance, validated_data):
+        kilos = validated_data.pop('kilos', None)
+        if kilos is not None:
+            validated_data['cantidad_entregada'] = kilos
+            # Solo establecer unidad_medida='KILO' si no se proporciona explícitamente
+            if 'unidad_medida' not in validated_data:
+                validated_data['unidad_medida'] = 'KILO'
+        return super().update(instance, validated_data)

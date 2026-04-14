@@ -10,13 +10,13 @@ $process = Start-Process -FilePath "node" `
     -WorkingDirectory "$PSScriptRoot\frontend" `
     -PassThru -NoNewWindow
 
-$pid = $process.Id
-Write-Host "Angular iniciado con PID: $pid" -ForegroundColor Green
-Write-Host "Frontend URL: http://localhost:4200/" -ForegroundColor Green
-Write-Host "Para detener: taskkill /PID $pid /F" -ForegroundColor Yellow
+  $angularPid = $process.Id
+  Write-Host "Angular iniciado con PID: $angularPid" -ForegroundColor Green
+  Write-Host "Frontend URL: http://localhost:4200/" -ForegroundColor Green
+  Write-Host "Para detener: taskkill /PID $angularPid /F" -ForegroundColor Yellow
 
-# Guardar PID en archivo para referencia
-$pid | Out-File "$PSScriptRoot\angular.pid" -Encoding ASCII
+  # Guardar PID en archivo para referencia
+  $angularPid | Out-File "$PSScriptRoot\angular.pid" -Encoding ASCII
 
 # Esperar unos segundos para que se inicie
 Start-Sleep -Seconds 10

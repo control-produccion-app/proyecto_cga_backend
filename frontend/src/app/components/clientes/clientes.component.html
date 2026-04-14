@@ -5,6 +5,16 @@
   </button>
 </div>
 
+<div *ngIf="cargando" class="alert alert-info">Cargando...</div>
+<div *ngIf="mensaje" class="alert alert-success alert-dismissible fade show" role="alert">
+  {{ mensaje }}
+  <button type="button" class="btn-close" (click)="mensaje = ''"></button>
+</div>
+<div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{ error }}
+  <button type="button" class="btn-close" (click)="error = ''"></button>
+</div>
+
 <div *ngIf="mostrarForm" class="card mb-4">
   <div class="card-header">Nuevo Cliente</div>
   <div class="card-body">
@@ -12,11 +22,11 @@
       <div class="row">
         <div class="col-md-3">
           <label>RUT</label>
-          <input type="text" class="form-control" [(ngModel)]="nuevoCliente.rut" name="rut" required>
+          <input type="text" class="form-control" [(ngModel)]="nuevoCliente.rut" name="rut" pattern="^[0-9]{7,8}$" title="7-8 dígitos sin puntos ni guión" required>
         </div>
         <div class="col-md-1">
           <label>DV</label>
-          <input type="text" class="form-control" [(ngModel)]="nuevoCliente.digito_verificador" name="dv" maxlength="1" required>
+          <input type="text" class="form-control" [(ngModel)]="nuevoCliente.digito_verificador" name="dv" maxlength="1" pattern="^[0-9Kk]$" title="Dígito verificador (0-9 o K)" required>
         </div>
         <div class="col-md-4">
           <label>Nombre</label>
@@ -24,7 +34,7 @@
         </div>
         <div class="col-md-4">
           <label>Ciudad</label>
-          <input type="text" class="form-control" [(ngModel)]="nuevoCliente.ciudad" name="ciudad">
+          <input type="text" class="form-control" [(ngModel)]="nuevoCliente.ciudad" name="ciudad" required>
         </div>
       </div>
       <div class="row mt-2">
@@ -34,7 +44,7 @@
         </div>
         <div class="col-md-3">
           <label>Teléfono</label>
-          <input type="text" class="form-control" [(ngModel)]="nuevoCliente.telefono" name="telefono">
+          <input type="text" class="form-control" [(ngModel)]="nuevoCliente.telefono" name="telefono" pattern="^(\+56|56)?(\s?)(0?9?\s?)[98765432]\d{7}$" title="Formato: +56 9 1234 5678 o 09 1234 5678">
         </div>
         <div class="col-md-3">
           <label>Descuento %</label>

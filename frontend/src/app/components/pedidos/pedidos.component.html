@@ -5,18 +5,38 @@
   </button>
 </div>
 
+<div *ngIf="cargando" class="alert alert-info">Cargando...</div>
+<div *ngIf="mensaje" class="alert alert-success alert-dismissible fade show" role="alert">
+  {{ mensaje }}
+  <button type="button" class="btn-close" (click)="mensaje = ''"></button>
+</div>
+<div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{ error }}
+  <button type="button" class="btn-close" (click)="error = ''"></button>
+</div>
+
 <div *ngIf="mostrarForm" class="card mb-4">
   <div class="card-header">Nuevo Pedido</div>
   <div class="card-body">
     <form (ngSubmit)="crearPedido()">
       <div class="row">
         <div class="col-md-4">
-          <label>Cliente ID</label>
-          <input type="number" class="form-control" [(ngModel)]="nuevoPedido.id_cliente" name="cliente" required>
+          <label>Cliente</label>
+          <select class="form-control" [(ngModel)]="nuevoPedido.id_cliente" name="cliente" required>
+            <option value="">Seleccionar cliente</option>
+            <option *ngFor="let cliente of clientesList" [value]="cliente.id_cliente">
+              {{ cliente.nombre_cliente }} ({{ cliente.rut }}-{{ cliente.digito_verificador }})
+            </option>
+          </select>
         </div>
         <div class="col-md-4">
-          <label>Distribución ID</label>
-          <input type="number" class="form-control" [(ngModel)]="nuevoPedido.id_distribucion" name="distribucion" required>
+          <label>Distribución</label>
+          <select class="form-control" [(ngModel)]="nuevoPedido.id_distribucion" name="distribucion" required>
+            <option value="">Seleccionar distribución</option>
+            <option *ngFor="let dist of distribucionesList" [value]="dist.id_distribucion">
+              {{ dist.nombre_distribucion }}
+            </option>
+          </select>
         </div>
         <div class="col-md-4">
           <label>Fecha Pedido</label>
@@ -34,6 +54,48 @@
   </div>
 </div>
 
+<div *ngIf="pedidoEdit" class="card mb-4">
+  <div class="card-header">Editar Pedido</div>
+  <div class="card-body">
+    <form (ngSubmit)="actualizarPedido()">
+      <div class="row">
+        <div class="col-md-4">
+          <label>Cliente</label>
+          <select class="form-control" [(ngModel)]="pedidoEdit.id_cliente" name="editCliente" required>
+            <option value="">Seleccionar cliente</option>
+            <option *ngFor="let cliente of clientesList" [value]="cliente.id_cliente">
+              {{ cliente.nombre_cliente }} ({{ cliente.rut }}-{{ cliente.digito_verificador }})
+            </option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label>Distribución</label>
+          <select class="form-control" [(ngModel)]="pedidoEdit.id_distribucion" name="editDistribucion" required>
+            <option value="">Seleccionar distribución</option>
+            <option *ngFor="let dist of distribucionesList" [value]="dist.id_distribucion">
+              {{ dist.nombre_distribucion }}
+            </option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label>Fecha Pedido</label>
+          <input type="date" class="form-control" [(ngModel)]="pedidoEdit.fecha_pedido" name="editFechaPedido" required>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-4">
+          <label>Fecha Entrega Solicitada</label>
+          <input type="date" class="form-control" [(ngModel)]="pedidoEdit.fecha_entrega_solicitada" name="editFechaEntrega" required>
+        </div>
+      </div>
+      <div class="mt-3">
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+        <button type="button" class="btn btn-secondary ms-2" (click)="pedidoEdit = null">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
@@ -44,6 +106,7 @@
         <th>Fecha Pedido</th>
         <th>Fecha Entrega</th>
         <th>Detalles</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -55,6 +118,10 @@
         <td>{{ pedido.fecha_entrega_solicitada }}</td>
         <td>
           <span class="badge bg-secondary">{{ pedido.detalles?.length || 0 }} items</span>
+        </td>
+        <td>
+          <button class="btn btn-sm btn-warning me-1" (click)="editarPedido(pedido)">Editar</button>
+          <button class="btn btn-sm btn-danger" (click)="eliminarPedido(pedido.id_pedido)">Eliminar</button>
         </td>
       </tr>
     </tbody>

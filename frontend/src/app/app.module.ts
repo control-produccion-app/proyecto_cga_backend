@@ -13,17 +13,20 @@ import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { ProduccionComponent } from './components/produccion/produccion.component';
 import { BodegaComponent } from './components/bodega/bodega.component';
 import { ReportesComponent } from './components/reportes/reportes.component';
+import { MovimientosComponent } from './components/movimientos/movimientos.component';
 import { AuthInterceptor } from './services/auth.interceptor';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'clientes', component: ClientesComponent },
-  { path: 'productos', component: ProductosComponent },
-  { path: 'pedidos', component: PedidosComponent },
-  { path: 'produccion', component: ProduccionComponent },
-  { path: 'bodega', component: BodegaComponent },
-  { path: 'reportes', component: ReportesComponent },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'clientes', component: ClientesComponent, canActivate: [AuthGuard] },
+  { path: 'productos', component: ProductosComponent, canActivate: [AuthGuard] },
+  { path: 'pedidos', component: PedidosComponent, canActivate: [AuthGuard] },
+  { path: 'produccion', component: ProduccionComponent, canActivate: [AuthGuard] },
+  { path: 'bodega', component: BodegaComponent, canActivate: [AuthGuard] },
+  { path: 'reportes', component: ReportesComponent, canActivate: [AuthGuard] },
+  { path: 'movimientos', component: MovimientosComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', redirectTo: '/login' }
 ];
@@ -38,7 +41,8 @@ const routes: Routes = [
     PedidosComponent,
     ProduccionComponent,
     BodegaComponent,
-    ReportesComponent
+    ReportesComponent,
+    MovimientosComponent
   ],
   imports: [
     BrowserModule,

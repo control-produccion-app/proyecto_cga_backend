@@ -1,4 +1,11 @@
 <h2>Dashboard</h2>
+
+<div *ngIf="cargando" class="alert alert-info">Cargando estadísticas...</div>
+<div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+  {{ error }}
+  <button type="button" class="btn-close" (click)="error = ''"></button>
+</div>
+
 <div class="row mt-4">
   <div class="col-md-3">
     <div class="card text-white bg-primary">
@@ -46,9 +53,9 @@
       </div>
       <div class="card-body">
         <div class="d-grid gap-2">
-          <button class="btn btn-outline-primary" routerLink="/pedidos/nuevo">Nuevo Pedido</button>
-          <button class="btn btn-outline-success" routerLink="/produccion/nueva">Registrar Producción</button>
-          <button class="btn btn-outline-warning" routerLink="/bodega/movimiento">Registrar Movimiento Bodega</button>
+          <button class="btn btn-outline-primary" routerLink="/pedidos">Nuevo Pedido</button>
+          <button class="btn btn-outline-success" routerLink="/produccion">Registrar Producción</button>
+          <button class="btn btn-outline-warning" routerLink="/bodega">Registrar Movimiento Bodega</button>
         </div>
       </div>
     </div>

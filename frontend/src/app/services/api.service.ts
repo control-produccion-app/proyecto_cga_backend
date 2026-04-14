@@ -21,6 +21,21 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/distribuciones/`);
   }
 
+  // Jornadas
+  getJornadas(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/jornadas/`);
+  }
+
+  // Tipos de producción
+  getTiposProduccion(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/tipos-produccion/`);
+  }
+
+  // Insumos
+  getInsumos(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/insumos/`);
+  }
+
   // Clientes
   getClientes(): Observable<any> {
     return this.http.get(`${this.baseUrl}/clientes/`);
@@ -51,8 +66,20 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/productos/`);
   }
 
+  getProducto(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/productos/${id}/`);
+  }
+
   createProducto(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/productos/`, data);
+  }
+
+  updateProducto(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/productos/${id}/`, data);
+  }
+
+  deleteProducto(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/productos/${id}/`);
   }
 
   // Pedidos
@@ -60,8 +87,20 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/pedidos/`);
   }
 
+  getPedido(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/pedidos/${id}/`);
+  }
+
   createPedido(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/pedidos/`, data);
+  }
+
+  updatePedido(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/pedidos/${id}/`, data);
+  }
+
+  deletePedido(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/pedidos/${id}/`);
   }
 
   // Producción
@@ -69,8 +108,20 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/producciones/`);
   }
 
+  getProduccion(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/producciones/${id}/`);
+  }
+
   createProduccion(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/producciones/`, data);
+  }
+
+  updateProduccion(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/producciones/${id}/`, data);
+  }
+
+  deleteProduccion(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/producciones/${id}/`);
   }
 
   // Movimientos
@@ -78,8 +129,20 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/movimientos/`);
   }
 
+  getMovimiento(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/movimientos/${id}/`);
+  }
+
   createMovimiento(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/movimientos/`, data);
+  }
+
+  updateMovimiento(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/movimientos/${id}/`, data);
+  }
+
+  deleteMovimiento(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/movimientos/${id}/`);
   }
 
   getResumenJornada(jornadaId: number): Observable<any> {
@@ -91,8 +154,20 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/movimientos-bodega/`);
   }
 
+  getMovimientoBodega(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/movimientos-bodega/${id}/`);
+  }
+
   createMovimientoBodega(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/movimientos-bodega/`, data);
+  }
+
+  updateMovimientoBodega(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/movimientos-bodega/${id}/`, data);
+  }
+
+  deleteMovimientoBodega(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/movimientos-bodega/${id}/`);
   }
 
   // Reportes
