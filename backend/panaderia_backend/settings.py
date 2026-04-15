@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import sys
 from dotenv import load_dotenv
 import dj_database_url
 
@@ -155,6 +156,53 @@ else:
     CORS_ALLOWED_ORIGINS = [origin for origin in CORS_ALLOWED_ORIGINS if origin]
 
 CORS_ALLOW_CREDENTIALS = True
+
+# ---------------------------------------------------------------------------
+# Logging — write everything to stderr so it appears in Railway deploy logs.
+# DEBUG level is intentionally used here to surface any initialisation issue.
+# ---------------------------------------------------------------------------
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[{asctime}] {levelname} {name} {message}',
+            'style': '{',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+    },
+    'handlers': {
+        'stderr': {
+            'class': 'logging.StreamHandler',
+            'stream': sys.stderr,
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'handlers': ['stderr'],
+        'level': 'DEBUG',
+    },
+    'loggers': {
+        # Django internals — keep at INFO to avoid drowning out app messages.
+        'django': {
+            'handlers': ['stderr'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        # Show every SQL query so we can spot a hanging DB call.
+        'django.db.backends': {
+            'handlers': ['stderr'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        # Our own WSGI bootstrap logger.
+        'panaderia_backend.wsgi': {
+            'handlers': ['stderr'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}
 
 # Security settings for production
 if not DEBUG:
