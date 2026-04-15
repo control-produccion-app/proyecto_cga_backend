@@ -18,6 +18,11 @@ allowed_hosts = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 if 'RAILWAY_ENVIRONMENT' in os.environ and '*.railway.app' not in allowed_hosts:
     allowed_hosts.append('*.railway.app')
 ALLOWED_HOSTS = [host.strip() for host in allowed_hosts if host.strip()]
+# Always allow Railway's internal healthcheck domain so that Railway's
+# healthcheck service (which sends Host: healthcheck.railway.app) is never
+# rejected by Django's SecurityMiddleware with a 400 DisallowedHost error.
+if 'healthcheck.railway.app' not in ALLOWED_HOSTS:
+    ALLOWED_HOSTS.append('healthcheck.railway.app')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -214,6 +219,3 @@ if not DEBUG:
     CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
     # Remove empty strings from the list
     CSRF_TRUSTED_ORIGINS = [origin for origin in CSRF_TRUSTED_ORIGINS if origin]
-    # Ensure ALLOWED_HOSTS includes Railway domain
-    if 'RAILWAY_ENVIRONMENT' in os.environ and '*.railway.app' not in ALLOWED_HOSTS:
-        ALLOWED_HOSTS.append('*.railway.app')
