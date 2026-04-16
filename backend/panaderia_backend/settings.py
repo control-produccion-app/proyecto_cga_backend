@@ -295,3 +295,8 @@ if not DEBUG:
     CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
     # Remove empty strings from the list
     CSRF_TRUSTED_ORIGINS = [origin for origin in CSRF_TRUSTED_ORIGINS if origin]
+    # Always allow Railway's public domain for CSRF
+    if 'RAILWAY_PUBLIC_DOMAIN' in os.environ:
+        railway_domain = f"https://{os.environ['RAILWAY_PUBLIC_DOMAIN']}"
+        if railway_domain not in CSRF_TRUSTED_ORIGINS:
+            CSRF_TRUSTED_ORIGINS.append(railway_domain)
