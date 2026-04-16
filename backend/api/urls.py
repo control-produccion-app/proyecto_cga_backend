@@ -1,7 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from . import views
-from django.http import JsonResponse
 
 router = DefaultRouter()
 router.register(r'turnos', views.TurnoViewSet)
@@ -18,9 +17,6 @@ router.register(r'pedidos', views.PedidoViewSet)
 router.register(r'detalles-pedido', views.DetallePedidoViewSet)
 router.register(r'movimientos', views.DetalleMovimientoViewSet)
 router.register(r'reportes', views.ReportesViewSet, basename='reportes')
-
-def health_check(request):
-    return JsonResponse({'status': 'ok'})
 
 urlpatterns = [
     path('health/', views.health_check, name='health-check'),
