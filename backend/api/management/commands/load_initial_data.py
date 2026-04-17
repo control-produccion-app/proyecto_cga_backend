@@ -7,7 +7,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # Datos para Turno
         turnos_data = [
-            {'id_turno': 1, 'nombre_turno': 'Noche'},
+            {'id_turno': 1, 'nombre_turno': 'Madrugada'},
             {'id_turno': 2, 'nombre_turno': 'Mañana'},
             {'id_turno': 3, 'nombre_turno': 'Tarde'},
         ]
