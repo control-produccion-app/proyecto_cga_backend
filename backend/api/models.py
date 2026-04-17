@@ -313,3 +313,30 @@ class DetalleMovimiento(models.Model):
     def venta_linea(self):
         # Calcula venta basada en cantidad entregada (puede ser kilos o unidades)
         return self.precio_cobrado * self.cantidad_entregada
+
+
+class ResumenClienteDia(models.Model):
+    fecha = models.DateField()
+    id_cliente = models.BigIntegerField()
+    rut = models.IntegerField()
+    digito_verificador = models.CharField(max_length=1)
+    nombre_cliente = models.CharField(max_length=150)
+    venta_dia = models.DecimalField(max_digits=20, decimal_places=2)
+    pago_dia = models.DecimalField(max_digits=20, decimal_places=2)
+    saldo_dia = models.DecimalField(max_digits=20, decimal_places=2)
+    
+    class Meta:
+        managed = False
+        db_table = 'vw_resumen_cliente_dia'
+
+
+class SaldoAcumuladoCliente(models.Model):
+    id_cliente = models.BigIntegerField()
+    rut = models.IntegerField()
+    digito_verificador = models.CharField(max_length=1)
+    nombre_cliente = models.CharField(max_length=150)
+    saldo_acumulado = models.DecimalField(max_digits=20, decimal_places=2)
+    
+    class Meta:
+        managed = False
+        db_table = 'vw_saldo_acumulado_cliente'

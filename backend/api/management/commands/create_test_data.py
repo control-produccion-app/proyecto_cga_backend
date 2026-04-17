@@ -26,14 +26,16 @@ class Command(BaseCommand):
         ]
         
         insumos = []
-        for i, data in enumerate(insumos_data, 1):
-            insumo, created = Insumo.objects.update_or_create(
-                id_insumo=i,
+        for data in insumos_data:
+            insumo, created = Insumo.objects.get_or_create(
+                nombre_insumo=data['nombre_insumo'],
                 defaults=data
             )
             insumos.append(insumo)
             if created:
                 self.stdout.write(self.style.SUCCESS(f'Insumo creado: {insumo.nombre_insumo}'))
+            else:
+                self.stdout.write(self.style.WARNING(f'Insumo ya existe: {insumo.nombre_insumo}'))
         
         # 2. Crear tipos de producción
         tipos_produccion_data = [
@@ -45,14 +47,16 @@ class Command(BaseCommand):
         ]
         
         tipos_produccion = []
-        for i, data in enumerate(tipos_produccion_data, 1):
-            tipo, created = TipoProduccion.objects.update_or_create(
-                id_tipo_produccion=i,
+        for data in tipos_produccion_data:
+            tipo, created = TipoProduccion.objects.get_or_create(
+                nombre_tipo_produccion=data['nombre_tipo_produccion'],
                 defaults=data
             )
             tipos_produccion.append(tipo)
             if created:
                 self.stdout.write(self.style.SUCCESS(f'Tipo producción creado: {tipo.nombre_tipo_produccion}'))
+            else:
+                self.stdout.write(self.style.WARNING(f'Tipo producción ya existe: {tipo.nombre_tipo_produccion}'))
         
         # 3. Crear productos comerciales
         productos_data = [
@@ -214,4 +218,4 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS(f'- Movimientos reales por jornada'))
         self.stdout.write(self.style.SUCCESS(f'- Conteos de bodega para todos los insumos'))
         self.stdout.write(self.style.SUCCESS('\nBackend listo para pruebas: http://localhost:8000/api/'))
-        self.stdout.write(self.style.SUCCESS('Admin: http://localhost:8000/admin (admin/admin123)'))
+        self.stdout.write(self.style.SUCCESS('Admin: http://localhost:8000/admin'))
