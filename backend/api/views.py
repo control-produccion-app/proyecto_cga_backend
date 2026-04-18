@@ -1,184 +1,332 @@
-from django.db.models import Sum, F, DecimalField
-from django.db.models.functions import Coalesce
+﻿from datetime import date
+from decimal import Decimal
+
+from django.db import connection
+from django.db.models import Sum
+from django.utils.dateparse import parse_date
+
 from rest_framework import viewsets, status
-from rest_framework.decorators import action, permission_classes
+from rest_framework.decorators import action, permission_classes, api_view
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny, IsAuthenticated
-from .permissions import (
-    IsAdministrador, IsJefeProduccion, IsVendedor, IsBodeguero,
-    IsCatalogoOnly, IsProduccionModule, IsBodegaModule, IsVentasModule, IsReportesModule,
-    WriteWithRolePermission
-)
+
 from .models import (
-    Turno, Distribucion, Insumo, TipoProduccion, JornadaDiaria, Produccion,
-    MovimientoBodega, ConteoBodega, Cliente, Producto, Pedido, DetallePedido,
-    DetalleMovimiento, ResumenClienteDia, SaldoAcumuladoCliente
-)
-from .serializers import (
-    TurnoSerializer, DistribucionSerializer, InsumoSerializer, TipoProduccionSerializer,
-    JornadaDiariaSerializer, ProduccionSerializer, MovimientoBodegaSerializer,
-    ConteoBodegaSerializer, ClienteSerializer, ProductoSerializer, PedidoSerializer,
-    DetallePedidoSerializer, DetalleMovimientoSerializer
+    Turno,
+    Distribucion,
+    Insumo,
+    TipoProduccion,
+    JornadaDiaria,
+    Produccion,
+    MovimientoBodega,
+    ConteoBodega,
+    Cliente,
+    Producto,
+    Pedido,
+    DetallePedido,
+    DetalleMovimiento,
+    ResumenClienteDia,
+    SaldoAcumuladoCliente,
 )
 
+from .serializers import (
+    TurnoSerializer,
+    DistribucionSerializer,
+    InsumoSerializer,
+    TipoProduccionSerializer,
+    JornadaDiariaSerializer,
+    ProduccionSerializer,
+    MovimientoBodegaSerializer,
+    ConteoBodegaSerializer,
+    ClienteSerializer,
+    ProductoSerializer,
+    PedidoSerializer,
+    DetallePedidoSerializer,
+    DetalleMovimientoSerializer,
+)
+
+from .permissions import (
+    EstaAutenticadoLecturaORolEscritura,
+    EstaAutenticadoYConRol,
+)
+
+# =========================================================
+# ROLES OFICIALES DEL SISTEMA
+# =========================================================
+
+ROL_ADMINISTRADOR = "Administrador"
+ROL_ENCARGADO_TURNO = "Encargado de turno"
+
+ROLES_ADMIN = [ROL_ADMINISTRADOR]
+ROLES_OPERACION = [ROL_ADMINISTRADOR, ROL_ENCARGADO_TURNO]
+
+# =========================================================
+# CATÃLOGOS BASE
+# =========================================================
 
 class TurnoViewSet(viewsets.ModelViewSet):
     queryset = Turno.objects.all()
     serializer_class = TurnoSerializer
-    permission_classes = [IsAuthenticated, WriteWithRolePermission(['Administrador'])]
+    permission_classes = [IsAuthenticated, EstaAutenticadoLecturaORolEscritura]
+    roles_escritura = ROLES_ADMIN
 
 
 class DistribucionViewSet(viewsets.ModelViewSet):
     queryset = Distribucion.objects.all()
     serializer_class = DistribucionSerializer
-    permission_classes = [IsAuthenticated, WriteWithRolePermission(['Administrador'])]
+    permission_classes = [IsAuthenticated, EstaAutenticadoLecturaORolEscritura]
+    roles_escritura = ROLES_ADMIN
 
 
 class InsumoViewSet(viewsets.ModelViewSet):
     queryset = Insumo.objects.all()
     serializer_class = InsumoSerializer
-    permission_classes = [IsAuthenticated, WriteWithRolePermission(['Administrador', 'Bodeguero'])]
+    permission_classes = [IsAuthenticated, EstaAutenticadoLecturaORolEscritura]
+    roles_escritura = ROLES_ADMIN
 
 
 class TipoProduccionViewSet(viewsets.ModelViewSet):
     queryset = TipoProduccion.objects.all()
     serializer_class = TipoProduccionSerializer
-    permission_classes = [IsAuthenticated, WriteWithRolePermission(['Administrador', 'JefeProduccion'])]
-
-
-class JornadaDiariaViewSet(viewsets.ModelViewSet):
-    queryset = JornadaDiaria.objects.all()
-    serializer_class = JornadaDiariaSerializer
-    permission_classes = [IsAuthenticated, WriteWithRolePermission(['Administrador', 'JefeProduccion'])]
-
-
-class ProduccionViewSet(viewsets.ModelViewSet):
-    queryset = Produccion.objects.all()
-    serializer_class = ProduccionSerializer
-    permission_classes = [IsAuthenticated, WriteWithRolePermission(['Administrador', 'JefeProduccion'])]
-
-
-class MovimientoBodegaViewSet(viewsets.ModelViewSet):
-    queryset = MovimientoBodega.objects.all()
-    serializer_class = MovimientoBodegaSerializer
-    permission_classes = [IsAuthenticated, WriteWithRolePermission(['Administrador', 'Bodeguero'])]
-
-
-class ConteoBodegaViewSet(viewsets.ModelViewSet):
-    queryset = ConteoBodega.objects.all()
-    serializer_class = ConteoBodegaSerializer
-    permission_classes = [IsAuthenticated, WriteWithRolePermission(['Administrador', 'Bodeguero'])]
-
-
-class ClienteViewSet(viewsets.ModelViewSet):
-    queryset = Cliente.objects.all()
-    serializer_class = ClienteSerializer
-    permission_classes = [IsAuthenticated, WriteWithRolePermission(['Administrador', 'Vendedor'])]
-    
-    @action(detail=True, methods=['get'], permission_classes=[WriteWithRolePermission(['Administrador', 'Vendedor'])])
-    def saldo(self, request, pk=None):
-        cliente = self.get_object()
-        
-        saldo_acumulado_obj = SaldoAcumuladoCliente.objects.filter(id_cliente=cliente.id_cliente).first()
-        resumen_aggregates = ResumenClienteDia.objects.filter(id_cliente=cliente.id_cliente).aggregate(
-            total_venta=Coalesce(Sum('venta_dia'), 0),
-            total_pago=Coalesce(Sum('pago_dia'), 0)
-        )
-        
-        saldo = saldo_acumulado_obj.saldo_acumulado if saldo_acumulado_obj else 0
-        
-        return Response({
-            'cliente_id': cliente.id_cliente,
-            'cliente_nombre': cliente.nombre_cliente,
-            'total_venta': resumen_aggregates['total_venta'],
-            'total_pago': resumen_aggregates['total_pago'],
-            'saldo_acumulado': saldo
-        })
+    permission_classes = [IsAuthenticated, EstaAutenticadoLecturaORolEscritura]
+    roles_escritura = ROLES_ADMIN
 
 
 class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
     serializer_class = ProductoSerializer
-    permission_classes = [IsAuthenticated, WriteWithRolePermission(['Administrador', 'Vendedor'])]
+    permission_classes = [IsAuthenticated, EstaAutenticadoLecturaORolEscritura]
+    roles_escritura = ROLES_ADMIN
+
+
+# =========================================================
+# PRODUCCIÃ“N
+# =========================================================
+
+class JornadaDiariaViewSet(viewsets.ModelViewSet):
+    queryset = JornadaDiaria.objects.all()
+    serializer_class = JornadaDiariaSerializer
+    permission_classes = [IsAuthenticated, EstaAutenticadoLecturaORolEscritura]
+    roles_escritura = ROLES_OPERACION
+
+
+class ProduccionViewSet(viewsets.ModelViewSet):
+    queryset = Produccion.objects.all()
+    serializer_class = ProduccionSerializer
+    permission_classes = [IsAuthenticated, EstaAutenticadoLecturaORolEscritura]
+    roles_escritura = ROLES_OPERACION
+
+# =========================================================
+# BODEGA
+# =========================================================
+
+class MovimientoBodegaViewSet(viewsets.ModelViewSet):
+    queryset = MovimientoBodega.objects.all()
+    serializer_class = MovimientoBodegaSerializer
+    permission_classes = [IsAuthenticated, EstaAutenticadoLecturaORolEscritura]
+    roles_escritura = ROLES_OPERACION
+
+
+class ConteoBodegaViewSet(viewsets.ModelViewSet):
+    queryset = ConteoBodega.objects.all()
+    serializer_class = ConteoBodegaSerializer
+    permission_classes = [IsAuthenticated, EstaAutenticadoLecturaORolEscritura]
+    roles_escritura = ROLES_OPERACION
+
+
+# =========================================================
+# CLIENTES / PEDIDOS / MOVIMIENTOS COMERCIALES
+# =========================================================
+
+class ClienteViewSet(viewsets.ModelViewSet):
+    queryset = Cliente.objects.all()
+    serializer_class = ClienteSerializer
+    permission_classes = [IsAuthenticated, EstaAutenticadoLecturaORolEscritura]
+    roles_escritura = ROLES_ADMIN
+
+    @action(detail=True, methods=["get"])
+    def saldo(self, request, pk=None):
+        self.roles_permitidos = ROLES_ADMIN
+        if not EstaAutenticadoYConRol().has_permission(request, self):
+            return Response(
+                {"detail": "No tiene permisos para acceder a este mÃ³dulo."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        cliente = self.get_object()
+
+        saldo_acumulado_obj = (
+            SaldoAcumuladoCliente.objects
+            .filter(id_cliente=cliente.id_cliente)
+            .first()
+        )
+
+        resumen = (
+            ResumenClienteDia.objects
+            .filter(id_cliente=cliente.id_cliente)
+            .aggregate(
+                total_venta=Sum("venta_dia"),
+                total_pago=Sum("pago_dia"),
+            )
+        )
+
+        total_venta = resumen["total_venta"] or Decimal("0.00")
+        total_pago = resumen["total_pago"] or Decimal("0.00")
+        saldo_acumulado = (
+            saldo_acumulado_obj.saldo_acumulado
+            if saldo_acumulado_obj
+            else Decimal("0.00")
+        )
+
+        return Response({
+            "cliente_id": cliente.id_cliente,
+            "cliente_nombre": cliente.nombre_cliente,
+            "total_venta": total_venta,
+            "total_pago": total_pago,
+            "saldo_acumulado": saldo_acumulado,
+        })
+
+
 
 
 class PedidoViewSet(viewsets.ModelViewSet):
     queryset = Pedido.objects.all()
     serializer_class = PedidoSerializer
-    permission_classes = [IsAuthenticated, WriteWithRolePermission(['Administrador', 'Vendedor'])]
+    permission_classes = [IsAuthenticated, EstaAutenticadoLecturaORolEscritura]
+    roles_escritura = ROLES_OPERACION
 
 
 class DetallePedidoViewSet(viewsets.ModelViewSet):
     queryset = DetallePedido.objects.all()
     serializer_class = DetallePedidoSerializer
-    permission_classes = [IsAuthenticated, WriteWithRolePermission(['Administrador', 'Vendedor'])]
+    permission_classes = [IsAuthenticated, EstaAutenticadoLecturaORolEscritura]
+    roles_escritura = ROLES_OPERACION
 
 
 class DetalleMovimientoViewSet(viewsets.ModelViewSet):
     queryset = DetalleMovimiento.objects.all()
     serializer_class = DetalleMovimientoSerializer
-    permission_classes = [IsAuthenticated, WriteWithRolePermission(['Administrador', 'Vendedor'])]
-    
-    @action(detail=False, methods=['get'], permission_classes=[WriteWithRolePermission(['Administrador', 'JefeProduccion', 'Vendedor'])])
+    permission_classes = [IsAuthenticated, EstaAutenticadoLecturaORolEscritura]
+    roles_escritura = ROLES_OPERACION
+
+    @action(detail=False, methods=["get"])
     def resumen_jornada(self, request):
-        jornada_id = request.query_params.get('jornada_id')
+        self.roles_permitidos = ROLES_ADMIN
+
+        if not EstaAutenticadoYConRol().has_permission(request, self):
+            return Response(
+                {"detail": "No tiene permisos para acceder a este mÃ³dulo."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        jornada_id = request.query_params.get("jornada_id")
+
         if not jornada_id:
-            return Response({'error': 'jornada_id es requerido'}, status=status.HTTP_400_BAD_REQUEST)
-        
+            return Response(
+                {"error": "jornada_id es requerido"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         try:
             jornada = JornadaDiaria.objects.get(id_jornada=jornada_id)
         except JornadaDiaria.DoesNotExist:
-            return Response({'error': 'Jornada no encontrada'}, status=status.HTTP_404_NOT_FOUND)
-        
-        resumen = ResumenClienteDia.objects.filter(fecha=jornada.fecha).values(
-            'id_cliente', 'nombre_cliente', 'venta_dia', 'pago_dia', 'saldo_dia'
-        )
-        
-        response_data = []
-        for item in resumen:
-            response_data.append({
-                'id_cliente': item['id_cliente'],
-                'id_cliente__nombre_cliente': item['nombre_cliente'],
-                'total_venta': item['venta_dia'],
-                'total_pago': item['pago_dia'],
-                'saldo_dia': item['saldo_dia']
-            })
-        
-        return Response(response_data)
+            return Response(
+                {"error": "Jornada no encontrada"},
+                status=status.HTTP_404_NOT_FOUND,
+            )
 
+        resumen = (
+            ResumenClienteDia.objects
+            .filter(fecha=jornada.fecha)
+            .values(
+                "id_cliente",
+                "nombre_cliente",
+                "venta_dia",
+                "pago_dia",
+                "saldo_dia",
+            )
+        )
+
+        respuesta = []
+
+        for item in resumen:
+            respuesta.append({
+                "id_cliente": item["id_cliente"],
+                "cliente_nombre": item["nombre_cliente"],
+                "total_venta": item["venta_dia"],
+                "total_pago": item["pago_dia"],
+                "saldo_dia": item["saldo_dia"],
+            })
+
+        return Response(respuesta)
+
+
+# =========================================================
+# REPORTES
+# =========================================================
 
 class ReportesViewSet(viewsets.ViewSet):
-    permission_classes = [IsAuthenticated, WriteWithRolePermission(['Administrador', 'JefeProduccion', 'Vendedor', 'Bodeguero'])]
-    
-    @action(detail=False, methods=['get'], permission_classes=[WriteWithRolePermission(['Administrador', 'JefeProduccion', 'Vendedor', 'Bodeguero'])])
+    permission_classes = [IsAuthenticated, EstaAutenticadoYConRol]
+    roles_permitidos = ROLES_ADMIN
+
+    @action(detail=False, methods=["get"])
     def stock_insumo(self, request):
-        insumo_id = request.query_params.get('insumo_id')
+        insumo_id = request.query_params.get("insumo_id")
+        fecha_param = request.query_params.get("fecha")
+
         if not insumo_id:
-            return Response({'error': 'insumo_id es requerido'}, status=status.HTTP_400_BAD_REQUEST)
-        
-        movimientos = MovimientoBodega.objects.filter(id_insumo_id=insumo_id)
-        
-        entradas = movimientos.filter(tipo_movimiento='ENTRADA').aggregate(total=Coalesce(Sum('cantidad'), 0))
-        salidas = movimientos.filter(tipo_movimiento='SALIDA').aggregate(total=Coalesce(Sum('cantidad'), 0))
-        ajustes = movimientos.filter(tipo_movimiento='AJUSTE').aggregate(total=Coalesce(Sum('cantidad'), 0))
-        
-        stock_teorico = entradas['total'] - salidas['total'] + ajustes['total']
-        
-        ultimo_conteo = ConteoBodega.objects.filter(id_insumo_id=insumo_id).order_by('-fecha_conteo').first()
-        
+            return Response(
+                {"error": "insumo_id es requerido"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        fecha_consulta = date.today()
+
+        if fecha_param:
+            fecha_parseada = parse_date(fecha_param)
+
+            if not fecha_parseada:
+                return Response(
+                    {"error": "fecha debe tener formato YYYY-MM-DD"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
+
+            fecha_consulta = fecha_parseada
+
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT fn_stock_insumo_fecha(%s, %s)",
+                [insumo_id, fecha_consulta],
+            )
+            stock_teorico = cursor.fetchone()[0]
+
+        ultimo_conteo = (
+            ConteoBodega.objects
+            .filter(id_insumo_id=insumo_id)
+            .order_by("-fecha_conteo")
+            .first()
+        )
+
+        cantidad_fisica = ultimo_conteo.cantidad_fisica if ultimo_conteo else None
+
+        diferencia = None
+        if cantidad_fisica is not None:
+            diferencia = stock_teorico - cantidad_fisica
+
         return Response({
-            'insumo_id': insumo_id,
-            'stock_teorico': stock_teorico,
-            'ultimo_conteo': ultimo_conteo.cantidad_fisica if ultimo_conteo else None,
-            'fecha_ultimo_conteo': ultimo_conteo.fecha_conteo if ultimo_conteo else None,
-            'diferencia': stock_teorico - (ultimo_conteo.cantidad_fisica if ultimo_conteo else 0)
+            "insumo_id": insumo_id,
+            "fecha_consulta": fecha_consulta,
+            "stock_teorico": stock_teorico,
+            "ultimo_conteo": cantidad_fisica,
+            "fecha_ultimo_conteo": ultimo_conteo.fecha_conteo if ultimo_conteo else None,
+            "diferencia": diferencia,
         })
 
 
-# Health check endpoint
-from rest_framework.decorators import api_view
+# =========================================================
+# HEALTH CHECK
+# =========================================================
 
-@api_view(['GET'])
+@api_view(["GET"])
 @permission_classes([AllowAny])
 def health_check(request):
-    return Response({'status': 'healthy'})
+    return Response({"status": "healthy"})
