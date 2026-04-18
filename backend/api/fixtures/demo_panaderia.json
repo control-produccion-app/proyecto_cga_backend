@@ -10,7 +10,7 @@
   "model": "api.turno",
   "pk": 2,
   "fields": {
-    "nombre_turno": "Mañana"
+    "nombre_turno": "MaÃ±ana"
   }
 },
 {
