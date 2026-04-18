@@ -88,7 +88,7 @@ class DetallePedidoAdmin(admin.ModelAdmin):
 
 @admin.register(DetalleMovimiento)
 class DetalleMovimientoAdmin(admin.ModelAdmin):
-    list_display = ('id_detalle', 'id_jornada', 'id_cliente', 'id_producto', 'precio_cobrado', 'cantidad_entregada', 'unidad_medida', 'kilos', 'cancelacion', 'venta_linea')
+    list_display = ('id_detalle', 'id_jornada', 'id_cliente', 'id_producto', 'precio_cobrado', 'cantidad_entregada', 'unidad_medida', 'cancelacion', 'venta_linea')
     list_filter = ('id_jornada', 'id_cliente', 'id_producto')
     ordering = ('-id_jornada__fecha',)
     

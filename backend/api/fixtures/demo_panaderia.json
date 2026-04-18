@@ -1,0 +1,2646 @@
+[
+{
+  "model": "api.turno",
+  "pk": 1,
+  "fields": {
+    "nombre_turno": "Madrugada"
+  }
+},
+{
+  "model": "api.turno",
+  "pk": 2,
+  "fields": {
+    "nombre_turno": "Mañana"
+  }
+},
+{
+  "model": "api.turno",
+  "pk": 3,
+  "fields": {
+    "nombre_turno": "Tarde"
+  }
+},
+{
+  "model": "api.distribucion",
+  "pk": 1,
+  "fields": {
+    "nombre_distribucion": "Ricardo"
+  }
+},
+{
+  "model": "api.distribucion",
+  "pk": 2,
+  "fields": {
+    "nombre_distribucion": "Osvaldo"
+  }
+},
+{
+  "model": "api.distribucion",
+  "pk": 3,
+  "fields": {
+    "nombre_distribucion": "Retiro Panaderia"
+  }
+},
+{
+  "model": "api.insumo",
+  "pk": 1,
+  "fields": {
+    "nombre_insumo": "Harina",
+    "unidad_control": "saco",
+    "stock_sugerido_inicial": "200.00",
+    "activo": "S"
+  }
+},
+{
+  "model": "api.insumo",
+  "pk": 2,
+  "fields": {
+    "nombre_insumo": "Harina integral",
+    "unidad_control": "saco",
+    "stock_sugerido_inicial": "1.00",
+    "activo": "S"
+  }
+},
+{
+  "model": "api.insumo",
+  "pk": 3,
+  "fields": {
+    "nombre_insumo": "Levadura",
+    "unidad_control": "unidad",
+    "stock_sugerido_inicial": "100.00",
+    "activo": "S"
+  }
+},
+{
+  "model": "api.tipoproduccion",
+  "pk": 1,
+  "fields": {
+    "nombre_tipo_produccion": "Pan corriente",
+    "id_insumo_principal": 1
+  }
+},
+{
+  "model": "api.tipoproduccion",
+  "pk": 2,
+  "fields": {
+    "nombre_tipo_produccion": "Pan integral",
+    "id_insumo_principal": 2
+  }
+},
+{
+  "model": "api.tipoproduccion",
+  "pk": 3,
+  "fields": {
+    "nombre_tipo_produccion": "Pan especial",
+    "id_insumo_principal": 1
+  }
+},
+{
+  "model": "api.producto",
+  "pk": 1,
+  "fields": {
+    "nombre_producto": "Hallulla",
+    "precio_sugerido": "2390.00",
+    "unidad_venta_base": "AMBOS",
+    "id_tipo_produccion": 1
+  }
+},
+{
+  "model": "api.producto",
+  "pk": 2,
+  "fields": {
+    "nombre_producto": "Batido",
+    "precio_sugerido": "2390.00",
+    "unidad_venta_base": "AMBOS",
+    "id_tipo_produccion": 1
+  }
+},
+{
+  "model": "api.producto",
+  "pk": 3,
+  "fields": {
+    "nombre_producto": "Colisa",
+    "precio_sugerido": "2390.00",
+    "unidad_venta_base": "AMBOS",
+    "id_tipo_produccion": 1
+  }
+},
+{
+  "model": "api.producto",
+  "pk": 4,
+  "fields": {
+    "nombre_producto": "Bollo integral",
+    "precio_sugerido": "3100.00",
+    "unidad_venta_base": "KILO",
+    "id_tipo_produccion": 2
+  }
+},
+{
+  "model": "api.producto",
+  "pk": 5,
+  "fields": {
+    "nombre_producto": "Molde integral",
+    "precio_sugerido": "2200.00",
+    "unidad_venta_base": "UNIDAD",
+    "id_tipo_produccion": 2
+  }
+},
+{
+  "model": "api.producto",
+  "pk": 6,
+  "fields": {
+    "nombre_producto": "Frica",
+    "precio_sugerido": "2690.00",
+    "unidad_venta_base": "KILO",
+    "id_tipo_produccion": 3
+  }
+},
+{
+  "model": "api.producto",
+  "pk": 7,
+  "fields": {
+    "nombre_producto": "Completo",
+    "precio_sugerido": "2690.00",
+    "unidad_venta_base": "KILO",
+    "id_tipo_produccion": 3
+  }
+},
+{
+  "model": "api.producto",
+  "pk": 8,
+  "fields": {
+    "nombre_producto": "Colisa especial",
+    "precio_sugerido": "2690.00",
+    "unidad_venta_base": "KILO",
+    "id_tipo_produccion": 3
+  }
+},
+{
+  "model": "api.cliente",
+  "pk": 1,
+  "fields": {
+    "rut": 11111111,
+    "digito_verificador": "1",
+    "nombre_cliente": "Paradero 18",
+    "ciudad": "Quillota",
+    "direccion": "Camino Troncal 1800",
+    "telefono": "+56932111111",
+    "descuento_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.cliente",
+  "pk": 2,
+  "fields": {
+    "rut": 22222222,
+    "digito_verificador": "2",
+    "nombre_cliente": "Paradero 8",
+    "ciudad": "Quillota",
+    "direccion": "Avenida Principal 800",
+    "telefono": "+56932222222",
+    "descuento_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.cliente",
+  "pk": 3,
+  "fields": {
+    "rut": 33333333,
+    "digito_verificador": "3",
+    "nombre_cliente": "Collao",
+    "ciudad": "La Cruz",
+    "direccion": "Local Sandwicheria 45",
+    "telefono": "+56932333333",
+    "descuento_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.cliente",
+  "pk": 4,
+  "fields": {
+    "rut": 44444444,
+    "digito_verificador": "4",
+    "nombre_cliente": "Andrea",
+    "ciudad": "Villa Alemana",
+    "direccion": "Pasaje Las Rosas 210",
+    "telefono": "+56932444444",
+    "descuento_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.cliente",
+  "pk": 5,
+  "fields": {
+    "rut": 55555555,
+    "digito_verificador": "5",
+    "nombre_cliente": "Abarrotes Kathy",
+    "ciudad": "Quilpue",
+    "direccion": "Calle Comercio 99",
+    "telefono": "+56932555555",
+    "descuento_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.cliente",
+  "pk": 6,
+  "fields": {
+    "rut": 66666666,
+    "digito_verificador": "6",
+    "nombre_cliente": "Lautaro",
+    "ciudad": "Calera",
+    "direccion": "Los Laureles 55",
+    "telefono": "+56932666666",
+    "descuento_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.jornadadiaria",
+  "pk": 1,
+  "fields": {
+    "fecha": "2026-04-07"
+  }
+},
+{
+  "model": "api.jornadadiaria",
+  "pk": 2,
+  "fields": {
+    "fecha": "2026-04-08"
+  }
+},
+{
+  "model": "api.jornadadiaria",
+  "pk": 3,
+  "fields": {
+    "fecha": "2026-04-09"
+  }
+},
+{
+  "model": "api.jornadadiaria",
+  "pk": 4,
+  "fields": {
+    "fecha": "2026-04-10"
+  }
+},
+{
+  "model": "api.jornadadiaria",
+  "pk": 5,
+  "fields": {
+    "fecha": "2026-04-11"
+  }
+},
+{
+  "model": "api.jornadadiaria",
+  "pk": 6,
+  "fields": {
+    "fecha": "2026-04-12"
+  }
+},
+{
+  "model": "api.jornadadiaria",
+  "pk": 7,
+  "fields": {
+    "fecha": "2026-04-13"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 1,
+  "fields": {
+    "id_jornada": 1,
+    "id_tipo_produccion": 1,
+    "id_turno": 1,
+    "quintales": "6.25"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 2,
+  "fields": {
+    "id_jornada": 1,
+    "id_tipo_produccion": 2,
+    "id_turno": 1,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 3,
+  "fields": {
+    "id_jornada": 1,
+    "id_tipo_produccion": 3,
+    "id_turno": 1,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 4,
+  "fields": {
+    "id_jornada": 1,
+    "id_tipo_produccion": 1,
+    "id_turno": 2,
+    "quintales": "7.25"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 5,
+  "fields": {
+    "id_jornada": 1,
+    "id_tipo_produccion": 2,
+    "id_turno": 2,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 6,
+  "fields": {
+    "id_jornada": 1,
+    "id_tipo_produccion": 3,
+    "id_turno": 2,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 7,
+  "fields": {
+    "id_jornada": 1,
+    "id_tipo_produccion": 1,
+    "id_turno": 3,
+    "quintales": "2.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 8,
+  "fields": {
+    "id_jornada": 1,
+    "id_tipo_produccion": 2,
+    "id_turno": 3,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 9,
+  "fields": {
+    "id_jornada": 1,
+    "id_tipo_produccion": 3,
+    "id_turno": 3,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 10,
+  "fields": {
+    "id_jornada": 2,
+    "id_tipo_produccion": 1,
+    "id_turno": 1,
+    "quintales": "6.50"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 11,
+  "fields": {
+    "id_jornada": 2,
+    "id_tipo_produccion": 2,
+    "id_turno": 1,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 12,
+  "fields": {
+    "id_jornada": 2,
+    "id_tipo_produccion": 3,
+    "id_turno": 1,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 13,
+  "fields": {
+    "id_jornada": 2,
+    "id_tipo_produccion": 1,
+    "id_turno": 2,
+    "quintales": "7.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 14,
+  "fields": {
+    "id_jornada": 2,
+    "id_tipo_produccion": 2,
+    "id_turno": 2,
+    "quintales": "0.40"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 15,
+  "fields": {
+    "id_jornada": 2,
+    "id_tipo_produccion": 3,
+    "id_turno": 2,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 16,
+  "fields": {
+    "id_jornada": 2,
+    "id_tipo_produccion": 1,
+    "id_turno": 3,
+    "quintales": "2.50"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 17,
+  "fields": {
+    "id_jornada": 2,
+    "id_tipo_produccion": 2,
+    "id_turno": 3,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 18,
+  "fields": {
+    "id_jornada": 2,
+    "id_tipo_produccion": 3,
+    "id_turno": 3,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 19,
+  "fields": {
+    "id_jornada": 3,
+    "id_tipo_produccion": 1,
+    "id_turno": 1,
+    "quintales": "6.25"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 20,
+  "fields": {
+    "id_jornada": 3,
+    "id_tipo_produccion": 2,
+    "id_turno": 1,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 21,
+  "fields": {
+    "id_jornada": 3,
+    "id_tipo_produccion": 3,
+    "id_turno": 1,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 22,
+  "fields": {
+    "id_jornada": 3,
+    "id_tipo_produccion": 1,
+    "id_turno": 2,
+    "quintales": "7.50"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 23,
+  "fields": {
+    "id_jornada": 3,
+    "id_tipo_produccion": 2,
+    "id_turno": 2,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 24,
+  "fields": {
+    "id_jornada": 3,
+    "id_tipo_produccion": 3,
+    "id_turno": 2,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 25,
+  "fields": {
+    "id_jornada": 3,
+    "id_tipo_produccion": 1,
+    "id_turno": 3,
+    "quintales": "2.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 26,
+  "fields": {
+    "id_jornada": 3,
+    "id_tipo_produccion": 2,
+    "id_turno": 3,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 27,
+  "fields": {
+    "id_jornada": 3,
+    "id_tipo_produccion": 3,
+    "id_turno": 3,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 28,
+  "fields": {
+    "id_jornada": 4,
+    "id_tipo_produccion": 1,
+    "id_turno": 1,
+    "quintales": "6.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 29,
+  "fields": {
+    "id_jornada": 4,
+    "id_tipo_produccion": 2,
+    "id_turno": 1,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 30,
+  "fields": {
+    "id_jornada": 4,
+    "id_tipo_produccion": 3,
+    "id_turno": 1,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 31,
+  "fields": {
+    "id_jornada": 4,
+    "id_tipo_produccion": 1,
+    "id_turno": 2,
+    "quintales": "7.25"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 32,
+  "fields": {
+    "id_jornada": 4,
+    "id_tipo_produccion": 2,
+    "id_turno": 2,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 33,
+  "fields": {
+    "id_jornada": 4,
+    "id_tipo_produccion": 3,
+    "id_turno": 2,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 34,
+  "fields": {
+    "id_jornada": 4,
+    "id_tipo_produccion": 1,
+    "id_turno": 3,
+    "quintales": "3.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 35,
+  "fields": {
+    "id_jornada": 4,
+    "id_tipo_produccion": 2,
+    "id_turno": 3,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 36,
+  "fields": {
+    "id_jornada": 4,
+    "id_tipo_produccion": 3,
+    "id_turno": 3,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 37,
+  "fields": {
+    "id_jornada": 5,
+    "id_tipo_produccion": 1,
+    "id_turno": 1,
+    "quintales": "6.25"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 38,
+  "fields": {
+    "id_jornada": 5,
+    "id_tipo_produccion": 2,
+    "id_turno": 1,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 39,
+  "fields": {
+    "id_jornada": 5,
+    "id_tipo_produccion": 3,
+    "id_turno": 1,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 40,
+  "fields": {
+    "id_jornada": 5,
+    "id_tipo_produccion": 1,
+    "id_turno": 2,
+    "quintales": "7.25"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 41,
+  "fields": {
+    "id_jornada": 5,
+    "id_tipo_produccion": 2,
+    "id_turno": 2,
+    "quintales": "0.35"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 42,
+  "fields": {
+    "id_jornada": 5,
+    "id_tipo_produccion": 3,
+    "id_turno": 2,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 43,
+  "fields": {
+    "id_jornada": 5,
+    "id_tipo_produccion": 1,
+    "id_turno": 3,
+    "quintales": "2.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 44,
+  "fields": {
+    "id_jornada": 5,
+    "id_tipo_produccion": 2,
+    "id_turno": 3,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 45,
+  "fields": {
+    "id_jornada": 5,
+    "id_tipo_produccion": 3,
+    "id_turno": 3,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 46,
+  "fields": {
+    "id_jornada": 6,
+    "id_tipo_produccion": 1,
+    "id_turno": 1,
+    "quintales": "6.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 47,
+  "fields": {
+    "id_jornada": 6,
+    "id_tipo_produccion": 2,
+    "id_turno": 1,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 48,
+  "fields": {
+    "id_jornada": 6,
+    "id_tipo_produccion": 3,
+    "id_turno": 1,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 49,
+  "fields": {
+    "id_jornada": 6,
+    "id_tipo_produccion": 1,
+    "id_turno": 2,
+    "quintales": "7.50"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 50,
+  "fields": {
+    "id_jornada": 6,
+    "id_tipo_produccion": 2,
+    "id_turno": 2,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 51,
+  "fields": {
+    "id_jornada": 6,
+    "id_tipo_produccion": 3,
+    "id_turno": 2,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 52,
+  "fields": {
+    "id_jornada": 6,
+    "id_tipo_produccion": 1,
+    "id_turno": 3,
+    "quintales": "2.50"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 53,
+  "fields": {
+    "id_jornada": 6,
+    "id_tipo_produccion": 2,
+    "id_turno": 3,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 54,
+  "fields": {
+    "id_jornada": 6,
+    "id_tipo_produccion": 3,
+    "id_turno": 3,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 55,
+  "fields": {
+    "id_jornada": 7,
+    "id_tipo_produccion": 1,
+    "id_turno": 1,
+    "quintales": "6.25"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 56,
+  "fields": {
+    "id_jornada": 7,
+    "id_tipo_produccion": 2,
+    "id_turno": 1,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 57,
+  "fields": {
+    "id_jornada": 7,
+    "id_tipo_produccion": 3,
+    "id_turno": 1,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 58,
+  "fields": {
+    "id_jornada": 7,
+    "id_tipo_produccion": 1,
+    "id_turno": 2,
+    "quintales": "7.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 59,
+  "fields": {
+    "id_jornada": 7,
+    "id_tipo_produccion": 2,
+    "id_turno": 2,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 60,
+  "fields": {
+    "id_jornada": 7,
+    "id_tipo_produccion": 3,
+    "id_turno": 2,
+    "quintales": "1.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 61,
+  "fields": {
+    "id_jornada": 7,
+    "id_tipo_produccion": 1,
+    "id_turno": 3,
+    "quintales": "2.75"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 62,
+  "fields": {
+    "id_jornada": 7,
+    "id_tipo_produccion": 2,
+    "id_turno": 3,
+    "quintales": "0.00"
+  }
+},
+{
+  "model": "api.produccion",
+  "pk": 63,
+  "fields": {
+    "id_jornada": 7,
+    "id_tipo_produccion": 3,
+    "id_turno": 3,
+    "quintales": "0.75"
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 1,
+  "fields": {
+    "id_insumo": 1,
+    "fecha_movimiento": "2026-04-07",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "18.50",
+    "id_jornada": 1,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 2,
+  "fields": {
+    "id_insumo": 2,
+    "fecha_movimiento": "2026-04-07",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "0.00",
+    "id_jornada": 1,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 3,
+  "fields": {
+    "id_insumo": 3,
+    "fecha_movimiento": "2026-04-07",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "12.00",
+    "id_jornada": 1,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 4,
+  "fields": {
+    "id_insumo": 1,
+    "fecha_movimiento": "2026-04-08",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "18.25",
+    "id_jornada": 2,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 5,
+  "fields": {
+    "id_insumo": 2,
+    "fecha_movimiento": "2026-04-08",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "0.40",
+    "id_jornada": 2,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 6,
+  "fields": {
+    "id_insumo": 3,
+    "fecha_movimiento": "2026-04-08",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "13.00",
+    "id_jornada": 2,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 7,
+  "fields": {
+    "id_insumo": 1,
+    "fecha_movimiento": "2026-04-09",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "18.75",
+    "id_jornada": 3,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 8,
+  "fields": {
+    "id_insumo": 2,
+    "fecha_movimiento": "2026-04-09",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "0.00",
+    "id_jornada": 3,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 9,
+  "fields": {
+    "id_insumo": 3,
+    "fecha_movimiento": "2026-04-09",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "13.00",
+    "id_jornada": 3,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 10,
+  "fields": {
+    "id_insumo": 1,
+    "fecha_movimiento": "2026-04-10",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "18.50",
+    "id_jornada": 4,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 11,
+  "fields": {
+    "id_insumo": 2,
+    "fecha_movimiento": "2026-04-10",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "0.00",
+    "id_jornada": 4,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 12,
+  "fields": {
+    "id_insumo": 3,
+    "fecha_movimiento": "2026-04-10",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "12.00",
+    "id_jornada": 4,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 13,
+  "fields": {
+    "id_insumo": 1,
+    "fecha_movimiento": "2026-04-11",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "18.50",
+    "id_jornada": 5,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 14,
+  "fields": {
+    "id_insumo": 2,
+    "fecha_movimiento": "2026-04-11",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "0.35",
+    "id_jornada": 5,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 15,
+  "fields": {
+    "id_insumo": 3,
+    "fecha_movimiento": "2026-04-11",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "13.00",
+    "id_jornada": 5,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 16,
+  "fields": {
+    "id_insumo": 1,
+    "fecha_movimiento": "2026-04-12",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "19.00",
+    "id_jornada": 6,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 17,
+  "fields": {
+    "id_insumo": 2,
+    "fecha_movimiento": "2026-04-12",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "0.00",
+    "id_jornada": 6,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 18,
+  "fields": {
+    "id_insumo": 3,
+    "fecha_movimiento": "2026-04-12",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "13.00",
+    "id_jornada": 6,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 19,
+  "fields": {
+    "id_insumo": 1,
+    "fecha_movimiento": "2026-04-13",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "18.50",
+    "id_jornada": 7,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 20,
+  "fields": {
+    "id_insumo": 2,
+    "fecha_movimiento": "2026-04-13",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "0.00",
+    "id_jornada": 7,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.movimientobodega",
+  "pk": 21,
+  "fields": {
+    "id_insumo": 3,
+    "fecha_movimiento": "2026-04-13",
+    "tipo_movimiento": "SALIDA",
+    "cantidad": "12.00",
+    "id_jornada": 7,
+    "id_turno": null
+  }
+},
+{
+  "model": "api.conteobodega",
+  "pk": 1,
+  "fields": {
+    "id_insumo": 1,
+    "fecha_conteo": "2026-04-09",
+    "id_turno": 3,
+    "cantidad_fisica": "144.50",
+    "observacion": "Conteo cierre dia 3"
+  }
+},
+{
+  "model": "api.conteobodega",
+  "pk": 2,
+  "fields": {
+    "id_insumo": 2,
+    "fecha_conteo": "2026-04-09",
+    "id_turno": 3,
+    "cantidad_fisica": "0.60",
+    "observacion": "Conteo cierre dia 3"
+  }
+},
+{
+  "model": "api.conteobodega",
+  "pk": 3,
+  "fields": {
+    "id_insumo": 3,
+    "fecha_conteo": "2026-04-09",
+    "id_turno": 3,
+    "cantidad_fisica": "62.00",
+    "observacion": "Conteo cierre dia 3"
+  }
+},
+{
+  "model": "api.conteobodega",
+  "pk": 4,
+  "fields": {
+    "id_insumo": 1,
+    "fecha_conteo": "2026-04-11",
+    "id_turno": 3,
+    "cantidad_fisica": "107.50",
+    "observacion": "Conteo cierre dia 5"
+  }
+},
+{
+  "model": "api.conteobodega",
+  "pk": 5,
+  "fields": {
+    "id_insumo": 2,
+    "fecha_conteo": "2026-04-11",
+    "id_turno": 3,
+    "cantidad_fisica": "0.25",
+    "observacion": "Conteo cierre dia 5"
+  }
+},
+{
+  "model": "api.conteobodega",
+  "pk": 6,
+  "fields": {
+    "id_insumo": 3,
+    "fecha_conteo": "2026-04-11",
+    "id_turno": 3,
+    "cantidad_fisica": "37.00",
+    "observacion": "Conteo cierre dia 5"
+  }
+},
+{
+  "model": "api.conteobodega",
+  "pk": 7,
+  "fields": {
+    "id_insumo": 1,
+    "fecha_conteo": "2026-04-13",
+    "id_turno": 3,
+    "cantidad_fisica": "70.00",
+    "observacion": "Conteo final semana"
+  }
+},
+{
+  "model": "api.conteobodega",
+  "pk": 8,
+  "fields": {
+    "id_insumo": 2,
+    "fecha_conteo": "2026-04-13",
+    "id_turno": 3,
+    "cantidad_fisica": "0.25",
+    "observacion": "Conteo final semana"
+  }
+},
+{
+  "model": "api.conteobodega",
+  "pk": 9,
+  "fields": {
+    "id_insumo": 3,
+    "fecha_conteo": "2026-04-13",
+    "id_turno": 3,
+    "cantidad_fisica": "12.00",
+    "observacion": "Conteo final semana"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 1,
+  "fields": {
+    "id_cliente": 1,
+    "id_distribucion": 1,
+    "fecha_pedido": "2026-04-07",
+    "fecha_entrega_solicitada": "2026-04-07"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 2,
+  "fields": {
+    "id_cliente": 3,
+    "id_distribucion": 1,
+    "fecha_pedido": "2026-04-07",
+    "fecha_entrega_solicitada": "2026-04-07"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 3,
+  "fields": {
+    "id_cliente": 5,
+    "id_distribucion": 2,
+    "fecha_pedido": "2026-04-07",
+    "fecha_entrega_solicitada": "2026-04-07"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 4,
+  "fields": {
+    "id_cliente": 4,
+    "id_distribucion": 3,
+    "fecha_pedido": "2026-04-07",
+    "fecha_entrega_solicitada": "2026-04-07"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 5,
+  "fields": {
+    "id_cliente": 2,
+    "id_distribucion": 2,
+    "fecha_pedido": "2026-04-08",
+    "fecha_entrega_solicitada": "2026-04-08"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 6,
+  "fields": {
+    "id_cliente": 3,
+    "id_distribucion": 1,
+    "fecha_pedido": "2026-04-08",
+    "fecha_entrega_solicitada": "2026-04-08"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 7,
+  "fields": {
+    "id_cliente": 6,
+    "id_distribucion": 3,
+    "fecha_pedido": "2026-04-08",
+    "fecha_entrega_solicitada": "2026-04-08"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 8,
+  "fields": {
+    "id_cliente": 4,
+    "id_distribucion": 3,
+    "fecha_pedido": "2026-04-08",
+    "fecha_entrega_solicitada": "2026-04-08"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 9,
+  "fields": {
+    "id_cliente": 1,
+    "id_distribucion": 1,
+    "fecha_pedido": "2026-04-09",
+    "fecha_entrega_solicitada": "2026-04-09"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 10,
+  "fields": {
+    "id_cliente": 5,
+    "id_distribucion": 2,
+    "fecha_pedido": "2026-04-09",
+    "fecha_entrega_solicitada": "2026-04-09"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 11,
+  "fields": {
+    "id_cliente": 3,
+    "id_distribucion": 1,
+    "fecha_pedido": "2026-04-09",
+    "fecha_entrega_solicitada": "2026-04-09"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 12,
+  "fields": {
+    "id_cliente": 2,
+    "id_distribucion": 2,
+    "fecha_pedido": "2026-04-10",
+    "fecha_entrega_solicitada": "2026-04-10"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 13,
+  "fields": {
+    "id_cliente": 6,
+    "id_distribucion": 3,
+    "fecha_pedido": "2026-04-10",
+    "fecha_entrega_solicitada": "2026-04-10"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 14,
+  "fields": {
+    "id_cliente": 4,
+    "id_distribucion": 3,
+    "fecha_pedido": "2026-04-10",
+    "fecha_entrega_solicitada": "2026-04-10"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 15,
+  "fields": {
+    "id_cliente": 5,
+    "id_distribucion": 2,
+    "fecha_pedido": "2026-04-10",
+    "fecha_entrega_solicitada": "2026-04-10"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 16,
+  "fields": {
+    "id_cliente": 1,
+    "id_distribucion": 1,
+    "fecha_pedido": "2026-04-11",
+    "fecha_entrega_solicitada": "2026-04-11"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 17,
+  "fields": {
+    "id_cliente": 3,
+    "id_distribucion": 1,
+    "fecha_pedido": "2026-04-11",
+    "fecha_entrega_solicitada": "2026-04-11"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 18,
+  "fields": {
+    "id_cliente": 5,
+    "id_distribucion": 2,
+    "fecha_pedido": "2026-04-11",
+    "fecha_entrega_solicitada": "2026-04-11"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 19,
+  "fields": {
+    "id_cliente": 2,
+    "id_distribucion": 2,
+    "fecha_pedido": "2026-04-12",
+    "fecha_entrega_solicitada": "2026-04-12"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 20,
+  "fields": {
+    "id_cliente": 6,
+    "id_distribucion": 1,
+    "fecha_pedido": "2026-04-12",
+    "fecha_entrega_solicitada": "2026-04-12"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 21,
+  "fields": {
+    "id_cliente": 4,
+    "id_distribucion": 3,
+    "fecha_pedido": "2026-04-12",
+    "fecha_entrega_solicitada": "2026-04-12"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 22,
+  "fields": {
+    "id_cliente": 1,
+    "id_distribucion": 1,
+    "fecha_pedido": "2026-04-13",
+    "fecha_entrega_solicitada": "2026-04-13"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 23,
+  "fields": {
+    "id_cliente": 3,
+    "id_distribucion": 1,
+    "fecha_pedido": "2026-04-13",
+    "fecha_entrega_solicitada": "2026-04-13"
+  }
+},
+{
+  "model": "api.pedido",
+  "pk": 24,
+  "fields": {
+    "id_cliente": 5,
+    "id_distribucion": 2,
+    "fecha_pedido": "2026-04-13",
+    "fecha_entrega_solicitada": "2026-04-13"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 1,
+  "fields": {
+    "id_pedido": 1,
+    "id_producto": 1,
+    "cantidad_solicitada": "18.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 2,
+  "fields": {
+    "id_pedido": 1,
+    "id_producto": 4,
+    "cantidad_solicitada": "4.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2945.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 3,
+  "fields": {
+    "id_pedido": 2,
+    "id_producto": 7,
+    "cantidad_solicitada": "6.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2690.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 4,
+  "fields": {
+    "id_pedido": 3,
+    "id_producto": 2,
+    "cantidad_solicitada": "12.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 5,
+  "fields": {
+    "id_pedido": 3,
+    "id_producto": 3,
+    "cantidad_solicitada": "30.00",
+    "unidad_medida": "UNIDAD",
+    "precio_cobrado": "171.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 6,
+  "fields": {
+    "id_pedido": 4,
+    "id_producto": 5,
+    "cantidad_solicitada": "4.00",
+    "unidad_medida": "UNIDAD",
+    "precio_cobrado": "2200.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 7,
+  "fields": {
+    "id_pedido": 5,
+    "id_producto": 1,
+    "cantidad_solicitada": "16.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 8,
+  "fields": {
+    "id_pedido": 5,
+    "id_producto": 8,
+    "cantidad_solicitada": "5.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2556.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 9,
+  "fields": {
+    "id_pedido": 6,
+    "id_producto": 2,
+    "cantidad_solicitada": "50.00",
+    "unidad_medida": "UNIDAD",
+    "precio_cobrado": "160.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 10,
+  "fields": {
+    "id_pedido": 6,
+    "id_producto": 6,
+    "cantidad_solicitada": "4.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2690.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 11,
+  "fields": {
+    "id_pedido": 7,
+    "id_producto": 3,
+    "cantidad_solicitada": "10.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2390.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 12,
+  "fields": {
+    "id_pedido": 8,
+    "id_producto": 5,
+    "cantidad_solicitada": "2.00",
+    "unidad_medida": "UNIDAD",
+    "precio_cobrado": "2200.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 13,
+  "fields": {
+    "id_pedido": 8,
+    "id_producto": 4,
+    "cantidad_solicitada": "2.50",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "3100.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 14,
+  "fields": {
+    "id_pedido": 9,
+    "id_producto": 3,
+    "cantidad_solicitada": "14.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 15,
+  "fields": {
+    "id_pedido": 9,
+    "id_producto": 7,
+    "cantidad_solicitada": "3.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2556.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 16,
+  "fields": {
+    "id_pedido": 10,
+    "id_producto": 1,
+    "cantidad_solicitada": "40.00",
+    "unidad_medida": "UNIDAD",
+    "precio_cobrado": "162.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 17,
+  "fields": {
+    "id_pedido": 11,
+    "id_producto": 6,
+    "cantidad_solicitada": "5.50",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2690.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 18,
+  "fields": {
+    "id_pedido": 11,
+    "id_producto": 5,
+    "cantidad_solicitada": "3.00",
+    "unidad_medida": "UNIDAD",
+    "precio_cobrado": "2200.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 19,
+  "fields": {
+    "id_pedido": 12,
+    "id_producto": 2,
+    "cantidad_solicitada": "15.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 20,
+  "fields": {
+    "id_pedido": 12,
+    "id_producto": 4,
+    "cantidad_solicitada": "3.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2945.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 21,
+  "fields": {
+    "id_pedido": 13,
+    "id_producto": 1,
+    "cantidad_solicitada": "25.00",
+    "unidad_medida": "UNIDAD",
+    "precio_cobrado": "170.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 22,
+  "fields": {
+    "id_pedido": 13,
+    "id_producto": 8,
+    "cantidad_solicitada": "2.50",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2690.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 23,
+  "fields": {
+    "id_pedido": 14,
+    "id_producto": 7,
+    "cantidad_solicitada": "2.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2690.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 24,
+  "fields": {
+    "id_pedido": 15,
+    "id_producto": 3,
+    "cantidad_solicitada": "11.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 25,
+  "fields": {
+    "id_pedido": 16,
+    "id_producto": 1,
+    "cantidad_solicitada": "20.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 26,
+  "fields": {
+    "id_pedido": 16,
+    "id_producto": 5,
+    "cantidad_solicitada": "5.00",
+    "unidad_medida": "UNIDAD",
+    "precio_cobrado": "2090.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 27,
+  "fields": {
+    "id_pedido": 17,
+    "id_producto": 2,
+    "cantidad_solicitada": "8.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2390.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 28,
+  "fields": {
+    "id_pedido": 17,
+    "id_producto": 6,
+    "cantidad_solicitada": "3.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2690.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 29,
+  "fields": {
+    "id_pedido": 18,
+    "id_producto": 3,
+    "cantidad_solicitada": "35.00",
+    "unidad_medida": "UNIDAD",
+    "precio_cobrado": "171.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 30,
+  "fields": {
+    "id_pedido": 19,
+    "id_producto": 1,
+    "cantidad_solicitada": "17.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 31,
+  "fields": {
+    "id_pedido": 19,
+    "id_producto": 3,
+    "cantidad_solicitada": "8.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 32,
+  "fields": {
+    "id_pedido": 20,
+    "id_producto": 7,
+    "cantidad_solicitada": "4.50",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2690.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 33,
+  "fields": {
+    "id_pedido": 21,
+    "id_producto": 5,
+    "cantidad_solicitada": "3.00",
+    "unidad_medida": "UNIDAD",
+    "precio_cobrado": "2200.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 34,
+  "fields": {
+    "id_pedido": 21,
+    "id_producto": 1,
+    "cantidad_solicitada": "6.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2390.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 35,
+  "fields": {
+    "id_pedido": 22,
+    "id_producto": 2,
+    "cantidad_solicitada": "13.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 36,
+  "fields": {
+    "id_pedido": 22,
+    "id_producto": 8,
+    "cantidad_solicitada": "4.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2556.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 37,
+  "fields": {
+    "id_pedido": 23,
+    "id_producto": 1,
+    "cantidad_solicitada": "60.00",
+    "unidad_medida": "UNIDAD",
+    "precio_cobrado": "170.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 38,
+  "fields": {
+    "id_pedido": 23,
+    "id_producto": 4,
+    "cantidad_solicitada": "2.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "3100.00",
+    "descuento_porcentaje_aplicado": "0.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 39,
+  "fields": {
+    "id_pedido": 24,
+    "id_producto": 6,
+    "cantidad_solicitada": "4.00",
+    "unidad_medida": "KILO",
+    "precio_cobrado": "2556.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallepedido",
+  "pk": 40,
+  "fields": {
+    "id_pedido": 24,
+    "id_producto": 5,
+    "cantidad_solicitada": "2.00",
+    "unidad_medida": "UNIDAD",
+    "precio_cobrado": "2090.00",
+    "descuento_porcentaje_aplicado": "5.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 1,
+  "fields": {
+    "id_jornada": 1,
+    "id_cliente": 1,
+    "id_distribucion": 1,
+    "id_producto": 1,
+    "id_pedido": 1,
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "18.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "40878.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 2,
+  "fields": {
+    "id_jornada": 1,
+    "id_cliente": 1,
+    "id_distribucion": 1,
+    "id_producto": 4,
+    "id_pedido": 1,
+    "precio_cobrado": "2945.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "4.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "11780.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 3,
+  "fields": {
+    "id_jornada": 1,
+    "id_cliente": 3,
+    "id_distribucion": 1,
+    "id_producto": 7,
+    "id_pedido": 2,
+    "precio_cobrado": "2690.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "6.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "10000.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 4,
+  "fields": {
+    "id_jornada": 1,
+    "id_cliente": 5,
+    "id_distribucion": 2,
+    "id_producto": 2,
+    "id_pedido": 3,
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "12.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "20000.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 5,
+  "fields": {
+    "id_jornada": 1,
+    "id_cliente": 5,
+    "id_distribucion": 2,
+    "id_producto": 3,
+    "id_pedido": 3,
+    "precio_cobrado": "171.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "30.00",
+    "unidad_medida": "UNIDAD",
+    "cancelacion": "0.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 6,
+  "fields": {
+    "id_jornada": 1,
+    "id_cliente": 4,
+    "id_distribucion": 3,
+    "id_producto": 5,
+    "id_pedido": 4,
+    "precio_cobrado": "2200.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "4.00",
+    "unidad_medida": "UNIDAD",
+    "cancelacion": "8800.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 7,
+  "fields": {
+    "id_jornada": 2,
+    "id_cliente": 2,
+    "id_distribucion": 2,
+    "id_producto": 1,
+    "id_pedido": 5,
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "16.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "30000.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 8,
+  "fields": {
+    "id_jornada": 2,
+    "id_cliente": 2,
+    "id_distribucion": 2,
+    "id_producto": 8,
+    "id_pedido": 5,
+    "precio_cobrado": "2556.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "5.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "0.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 9,
+  "fields": {
+    "id_jornada": 2,
+    "id_cliente": 3,
+    "id_distribucion": 1,
+    "id_producto": 2,
+    "id_pedido": 6,
+    "precio_cobrado": "160.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "50.00",
+    "unidad_medida": "UNIDAD",
+    "cancelacion": "8000.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 10,
+  "fields": {
+    "id_jornada": 2,
+    "id_cliente": 3,
+    "id_distribucion": 1,
+    "id_producto": 6,
+    "id_pedido": 6,
+    "precio_cobrado": "2690.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "4.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "10760.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 11,
+  "fields": {
+    "id_jornada": 2,
+    "id_cliente": 6,
+    "id_distribucion": 3,
+    "id_producto": 3,
+    "id_pedido": 7,
+    "precio_cobrado": "2390.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "10.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "0.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 12,
+  "fields": {
+    "id_jornada": 2,
+    "id_cliente": 4,
+    "id_distribucion": 3,
+    "id_producto": 5,
+    "id_pedido": 8,
+    "precio_cobrado": "2200.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "2.00",
+    "unidad_medida": "UNIDAD",
+    "cancelacion": "4400.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 13,
+  "fields": {
+    "id_jornada": 2,
+    "id_cliente": 4,
+    "id_distribucion": 3,
+    "id_producto": 4,
+    "id_pedido": 8,
+    "precio_cobrado": "3100.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "2.50",
+    "unidad_medida": "KILO",
+    "cancelacion": "7750.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 14,
+  "fields": {
+    "id_jornada": 3,
+    "id_cliente": 1,
+    "id_distribucion": 1,
+    "id_producto": 3,
+    "id_pedido": 9,
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "14.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "25000.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 15,
+  "fields": {
+    "id_jornada": 3,
+    "id_cliente": 1,
+    "id_distribucion": 1,
+    "id_producto": 7,
+    "id_pedido": 9,
+    "precio_cobrado": "2556.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "3.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "0.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 16,
+  "fields": {
+    "id_jornada": 3,
+    "id_cliente": 5,
+    "id_distribucion": 2,
+    "id_producto": 1,
+    "id_pedido": 10,
+    "precio_cobrado": "162.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "40.00",
+    "unidad_medida": "UNIDAD",
+    "cancelacion": "6480.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 17,
+  "fields": {
+    "id_jornada": 3,
+    "id_cliente": 3,
+    "id_distribucion": 1,
+    "id_producto": 6,
+    "id_pedido": 11,
+    "precio_cobrado": "2690.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "5.50",
+    "unidad_medida": "KILO",
+    "cancelacion": "14795.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 18,
+  "fields": {
+    "id_jornada": 3,
+    "id_cliente": 3,
+    "id_distribucion": 1,
+    "id_producto": 5,
+    "id_pedido": 11,
+    "precio_cobrado": "2200.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "3.00",
+    "unidad_medida": "UNIDAD",
+    "cancelacion": "2200.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 19,
+  "fields": {
+    "id_jornada": 4,
+    "id_cliente": 2,
+    "id_distribucion": 2,
+    "id_producto": 2,
+    "id_pedido": 12,
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "15.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "34065.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 20,
+  "fields": {
+    "id_jornada": 4,
+    "id_cliente": 2,
+    "id_distribucion": 2,
+    "id_producto": 4,
+    "id_pedido": 12,
+    "precio_cobrado": "2945.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "3.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "8835.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 21,
+  "fields": {
+    "id_jornada": 4,
+    "id_cliente": 6,
+    "id_distribucion": 3,
+    "id_producto": 1,
+    "id_pedido": 13,
+    "precio_cobrado": "170.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "25.00",
+    "unidad_medida": "UNIDAD",
+    "cancelacion": "0.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 22,
+  "fields": {
+    "id_jornada": 4,
+    "id_cliente": 6,
+    "id_distribucion": 3,
+    "id_producto": 8,
+    "id_pedido": 13,
+    "precio_cobrado": "2690.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "2.50",
+    "unidad_medida": "KILO",
+    "cancelacion": "0.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 23,
+  "fields": {
+    "id_jornada": 4,
+    "id_cliente": 4,
+    "id_distribucion": 3,
+    "id_producto": 7,
+    "id_pedido": 14,
+    "precio_cobrado": "2690.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "2.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "5380.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 24,
+  "fields": {
+    "id_jornada": 4,
+    "id_cliente": 5,
+    "id_distribucion": 2,
+    "id_producto": 3,
+    "id_pedido": 15,
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "11.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "10000.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 25,
+  "fields": {
+    "id_jornada": 5,
+    "id_cliente": 1,
+    "id_distribucion": 1,
+    "id_producto": 1,
+    "id_pedido": 16,
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "20.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "45420.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 26,
+  "fields": {
+    "id_jornada": 5,
+    "id_cliente": 1,
+    "id_distribucion": 1,
+    "id_producto": 5,
+    "id_pedido": 16,
+    "precio_cobrado": "2090.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "5.00",
+    "unidad_medida": "UNIDAD",
+    "cancelacion": "10450.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 27,
+  "fields": {
+    "id_jornada": 5,
+    "id_cliente": 3,
+    "id_distribucion": 1,
+    "id_producto": 2,
+    "id_pedido": 17,
+    "precio_cobrado": "2390.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "8.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "19120.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 28,
+  "fields": {
+    "id_jornada": 5,
+    "id_cliente": 3,
+    "id_distribucion": 1,
+    "id_producto": 6,
+    "id_pedido": 17,
+    "precio_cobrado": "2690.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "3.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "3000.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 29,
+  "fields": {
+    "id_jornada": 5,
+    "id_cliente": 5,
+    "id_distribucion": 2,
+    "id_producto": 3,
+    "id_pedido": 18,
+    "precio_cobrado": "171.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "35.00",
+    "unidad_medida": "UNIDAD",
+    "cancelacion": "5985.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 30,
+  "fields": {
+    "id_jornada": 6,
+    "id_cliente": 2,
+    "id_distribucion": 2,
+    "id_producto": 1,
+    "id_pedido": 19,
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "17.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "38607.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 31,
+  "fields": {
+    "id_jornada": 6,
+    "id_cliente": 2,
+    "id_distribucion": 2,
+    "id_producto": 3,
+    "id_pedido": 19,
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "8.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "10000.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 32,
+  "fields": {
+    "id_jornada": 6,
+    "id_cliente": 6,
+    "id_distribucion": 1,
+    "id_producto": 7,
+    "id_pedido": 20,
+    "precio_cobrado": "2690.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "4.50",
+    "unidad_medida": "KILO",
+    "cancelacion": "0.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 33,
+  "fields": {
+    "id_jornada": 6,
+    "id_cliente": 4,
+    "id_distribucion": 3,
+    "id_producto": 5,
+    "id_pedido": 21,
+    "precio_cobrado": "2200.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "3.00",
+    "unidad_medida": "UNIDAD",
+    "cancelacion": "6600.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 34,
+  "fields": {
+    "id_jornada": 6,
+    "id_cliente": 4,
+    "id_distribucion": 3,
+    "id_producto": 1,
+    "id_pedido": 21,
+    "precio_cobrado": "2390.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "6.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "14340.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 35,
+  "fields": {
+    "id_jornada": 7,
+    "id_cliente": 1,
+    "id_distribucion": 1,
+    "id_producto": 2,
+    "id_pedido": 22,
+    "precio_cobrado": "2271.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "13.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "25000.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 36,
+  "fields": {
+    "id_jornada": 7,
+    "id_cliente": 1,
+    "id_distribucion": 1,
+    "id_producto": 8,
+    "id_pedido": 22,
+    "precio_cobrado": "2556.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "4.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "0.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 37,
+  "fields": {
+    "id_jornada": 7,
+    "id_cliente": 3,
+    "id_distribucion": 1,
+    "id_producto": 1,
+    "id_pedido": 23,
+    "precio_cobrado": "170.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "60.00",
+    "unidad_medida": "UNIDAD",
+    "cancelacion": "10200.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 38,
+  "fields": {
+    "id_jornada": 7,
+    "id_cliente": 3,
+    "id_distribucion": 1,
+    "id_producto": 4,
+    "id_pedido": 23,
+    "precio_cobrado": "3100.00",
+    "descuento_porcentaje_aplicado": "0.00",
+    "cantidad_entregada": "2.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "6200.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 39,
+  "fields": {
+    "id_jornada": 7,
+    "id_cliente": 5,
+    "id_distribucion": 2,
+    "id_producto": 6,
+    "id_pedido": 24,
+    "precio_cobrado": "2556.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "4.00",
+    "unidad_medida": "KILO",
+    "cancelacion": "10000.00"
+  }
+},
+{
+  "model": "api.detallemovimiento",
+  "pk": 40,
+  "fields": {
+    "id_jornada": 7,
+    "id_cliente": 5,
+    "id_distribucion": 2,
+    "id_producto": 5,
+    "id_pedido": 24,
+    "precio_cobrado": "2090.00",
+    "descuento_porcentaje_aplicado": "5.00",
+    "cantidad_entregada": "2.00",
+    "unidad_medida": "UNIDAD",
+    "cancelacion": "0.00"
+  }
+}
+]
