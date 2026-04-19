@@ -321,6 +321,25 @@ class ReportesViewSet(viewsets.ViewSet):
             "diferencia": diferencia,
         })
 
+# =========================================================
+# USUARIO AUTENTICADO
+# =========================================================
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def usuario_actual(request):
+    usuario = request.user
+
+    roles = list(
+        usuario.groups.values_list("name", flat=True)
+    )
+
+    return Response({
+        "id": usuario.id,
+        "username": usuario.username,
+        "is_superuser": usuario.is_superuser,
+        "roles": roles,
+    })
 
 # =========================================================
 # HEALTH CHECK

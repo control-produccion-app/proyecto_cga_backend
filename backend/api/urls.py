@@ -50,6 +50,7 @@ router_reportes.register(r'reportes', views.ReportesViewSet, basename='reportes'
 
 urlpatterns = [
     path('health/', views.health_check, name='health-check'),
+    path('me/', views.usuario_actual, name='usuario-actual'),
     path('', include(router.urls)),  # Rutas globales (backward compatibility)
     path('catalogo/', include(router_catalogo.urls)),
     path('produccion/', include(router_produccion.urls)),
