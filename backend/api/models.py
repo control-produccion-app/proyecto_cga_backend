@@ -582,3 +582,81 @@ class SaldoAcumuladoCliente(models.Model):
     class Meta:
         managed = False
         db_table = "vw_saldo_acumulado_cliente"
+
+
+class DetalleRepartoTurno(models.Model):
+    UNIDAD_MEDIDA_CHOICES = [
+        ("KILO", "Kilo"),
+        ("UNIDAD", "Unidad"),
+    ]
+
+    id_detalle_reparto_turno = models.AutoField(primary_key=True)
+
+    id_jornada = models.ForeignKey(
+        JornadaDiaria,
+        on_delete=models.CASCADE,
+        db_column="id_jornada",
+    )
+
+    id_turno = models.ForeignKey(
+        Turno,
+        on_delete=models.CASCADE,
+        db_column="id_turno",
+    )
+
+    id_cliente = models.ForeignKey(
+        Cliente,
+        on_delete=models.CASCADE,
+        db_column="id_cliente",
+    )
+
+    id_distribucion = models.ForeignKey(
+        Distribucion,
+        on_delete=models.CASCADE,
+        db_column="id_distribucion",
+    )
+
+    cantidad_entregada = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        validators=[MinValueValidator(0)],
+    )
+
+    unidad_medida = models.CharField(
+        max_length=10,
+        choices=UNIDAD_MEDIDA_CHOICES,
+        default="KILO",
+    )
+
+    fecha_registro = models.DateTimeField(auto_now_add=True)
+
+    observacion = models.TextField(
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self):
+        return (
+            f"Reparto {self.id_cliente} - "
+            f"{self.id_jornada.fecha} - "
+            f"{self.id_turno.nombre_turno}"
+        )
+
+    class Meta:
+        db_table = "detalle_reparto_turno"
+        indexes = [
+            models.Index(fields=["id_jornada"], name="idx_drt_jornada"),
+            models.Index(fields=["id_turno"], name="idx_drt_turno"),
+            models.Index(fields=["id_cliente"], name="idx_drt_cliente"),
+            models.Index(fields=["id_distribucion"], name="idx_drt_distribucion"),
+        ]
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(unidad_medida__in=["KILO", "UNIDAD"]),
+                name="check_drt_unidad_medida",
+            ),
+            models.CheckConstraint(
+                check=models.Q(cantidad_entregada__gte=0),
+                name="check_drt_cantidad_no_negativa",
+            ),
+        ]

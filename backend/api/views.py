@@ -26,6 +26,7 @@ from .models import (
     Pedido,
     DetallePedido,
     DetalleMovimiento,
+    DetalleRepartoTurno,
     ResumenClienteDia,
     SaldoAcumuladoCliente,
 )
@@ -45,6 +46,7 @@ from .serializers import (
     PedidoSerializer,
     DetallePedidoSerializer,
     DetalleMovimientoSerializer,
+    DetalleRepartoTurnoSerializer,
 )
 
 from .permissions import (
@@ -408,6 +410,18 @@ class PedidoViewSet(viewsets.ModelViewSet):
 class DetallePedidoViewSet(viewsets.ModelViewSet):
     queryset = DetallePedido.objects.all()
     serializer_class = DetallePedidoSerializer
+    permission_classes = [IsAuthenticated, EstaAutenticadoLecturaORolEscritura]
+    roles_escritura = ROLES_OPERACION
+
+
+
+class DetalleRepartoTurnoViewSet(viewsets.ModelViewSet):
+    queryset = (
+        DetalleRepartoTurno.objects
+        .select_related("id_jornada", "id_turno", "id_cliente", "id_distribucion")
+        .all()
+    )
+    serializer_class = DetalleRepartoTurnoSerializer
     permission_classes = [IsAuthenticated, EstaAutenticadoLecturaORolEscritura]
     roles_escritura = ROLES_OPERACION
 

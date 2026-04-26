@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import (
     Turno, Distribucion, Insumo, TipoProduccion, JornadaDiaria, Produccion,
     CierreTurno, MovimientoBodega, ConteoBodega, Cliente, Producto, Pedido,
-    DetallePedido, DetalleMovimiento
+    DetallePedido, DetalleMovimiento, DetalleRepartoTurno
 )
 
 
@@ -242,3 +242,26 @@ class DetalleMovimientoSerializer(serializers.ModelSerializer):
                 validated_data['unidad_medida'] = 'KILO'
 
         return super().update(instance, validated_data)
+
+
+class DetalleRepartoTurnoSerializer(serializers.ModelSerializer):
+    cliente_nombre = serializers.CharField(
+        source='id_cliente.nombre_cliente',
+        read_only=True
+    )
+    distribucion_nombre = serializers.CharField(
+        source='id_distribucion.nombre_distribucion',
+        read_only=True
+    )
+    jornada_fecha = serializers.DateField(
+        source='id_jornada.fecha',
+        read_only=True
+    )
+    turno_nombre = serializers.CharField(
+        source='id_turno.nombre_turno',
+        read_only=True
+    )
+
+    class Meta:
+        model = DetalleRepartoTurno
+        fields = '__all__'
