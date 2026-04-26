@@ -1,6 +1,9 @@
-﻿from datetime import date
+﻿import random
+from datetime import date, timedelta
 from decimal import Decimal, ROUND_HALF_UP
 
+from django.conf import settings
+from django.contrib.auth import authenticate
 from django.db import connection
 from django.db.models import Sum
 from django.utils import timezone
@@ -10,6 +13,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action, permission_classes, api_view
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import (
     Turno,
@@ -28,6 +32,7 @@ from .models import (
     DetalleMovimiento,
     ResumenClienteDia,
     SaldoAcumuladoCliente,
+    TwoFactorCode,
 )
 
 from .serializers import (
@@ -45,7 +50,11 @@ from .serializers import (
     PedidoSerializer,
     DetallePedidoSerializer,
     DetalleMovimientoSerializer,
+    TwoFactorLoginSerializer,
+    TwoFactorVerifySerializer,
 )
+
+from .email_utils import enviar_codigo_2fa
 
 from .permissions import (
     EstaAutenticadoLecturaORolEscritura,
@@ -539,6 +548,98 @@ def usuario_actual(request):
         "is_superuser": usuario.is_superuser,
         "roles": roles,
     })
+
+
+# =========================================================
+# 2FA - DOBLE FACTOR DE AUTENTICACIÓN
+# =========================================================
+
+from .serializers import TwoFactorLoginSerializer, TwoFactorVerifySerializer
+from .models import TwoFactorCode
+from .email_utils import enviar_codigo_2fa
+from datetime import timedelta
+
+
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def two_factor_obtain(request):
+    serializer = TwoFactorLoginSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+
+    user = authenticate(
+        username=serializer.validated_data["username"],
+        password=serializer.validated_data["password"],
+    )
+
+    if user is None:
+        return Response(
+            {"error": "Credenciales incorrectas"},
+            status=status.HTTP_401_UNAUTHORIZED,
+        )
+
+    if not user.is_active:
+        return Response(
+            {"error": "Usuario inactivo"},
+            status=status.HTTP_401_UNAUTHORIZED,
+        )
+
+    TwoFactorCode.objects.filter(user=user, is_used=False).update(is_used=True)
+
+    codigo = f"{random.randint(100000, 999999)}"
+    expires_at = timezone.now() + timedelta(
+        minutes=settings.TWO_FACTOR_CODE_EXPIRY_MINUTES
+    )
+
+    tf_code = TwoFactorCode.objects.create(
+        user=user, code=codigo, expires_at=expires_at
+    )
+
+    if user.email:
+        enviar_codigo_2fa(user.email, codigo, user.username)
+
+    return Response(
+        {
+            "session_id": str(tf_code.session_id),
+            "message": f"Código enviado a {user.email}",
+            "expires_in": settings.TWO_FACTOR_CODE_EXPIRY_MINUTES * 60,
+        }
+    )
+
+
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def two_factor_verify(request):
+    serializer = TwoFactorVerifySerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+
+    try:
+        tf_code = TwoFactorCode.objects.get(
+            session_id=serializer.validated_data["session_id"],
+            code=serializer.validated_data["code"],
+            is_used=False,
+        )
+    except TwoFactorCode.DoesNotExist:
+        return Response(
+            {"error": "Código inválido o expirado"},
+            status=status.HTTP_401_UNAUTHORIZED,
+        )
+
+    if not tf_code.is_valid():
+        return Response(
+            {"error": "Código expirado. Solicite uno nuevo."},
+            status=status.HTTP_401_UNAUTHORIZED,
+        )
+
+    tf_code.mark_as_used()
+
+    refresh = RefreshToken.for_user(tf_code.user)
+
+    return Response(
+        {
+            "access": str(refresh.access_token),
+            "refresh": str(refresh),
+        }
+    )
 
 
 # =========================================================

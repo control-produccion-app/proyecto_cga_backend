@@ -242,3 +242,13 @@ class DetalleMovimientoSerializer(serializers.ModelSerializer):
                 validated_data['unidad_medida'] = 'KILO'
 
         return super().update(instance, validated_data)
+
+
+class TwoFactorLoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
+
+class TwoFactorVerifySerializer(serializers.Serializer):
+    session_id = serializers.UUIDField()
+    code = serializers.CharField(max_length=6)
