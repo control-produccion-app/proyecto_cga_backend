@@ -595,7 +595,12 @@ def two_factor_obtain(request):
     )
 
     if user.email:
-        enviar_codigo_2fa(user.email, codigo, user.username)
+        try:
+            enviar_codigo_2fa(user.email, codigo, user.username)
+        except Exception as e:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error enviando 2FA a {user.email}: {e}")
 
     return Response(
         {
