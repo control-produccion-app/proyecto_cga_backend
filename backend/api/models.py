@@ -1,4 +1,7 @@
-﻿from django.db import models
+﻿import uuid
+
+from django.db import models
+from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
 
@@ -582,6 +585,25 @@ class SaldoAcumuladoCliente(models.Model):
     class Meta:
         managed = False
         db_table = "vw_saldo_acumulado_cliente"
+
+
+class TwoFactorCode(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    code = models.CharField(max_length=6)
+    session_id = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField()
+    is_used = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'two_factor_code'
+
+    def is_valid(self):
+        return not self.is_used and timezone.now() <= self.expires_at
+
+    def mark_as_used(self):
+        self.is_used = True
+        self.save(update_fields=['is_used'])
 
 
 class DetalleRepartoTurno(models.Model):

@@ -55,6 +55,8 @@ router_reportes.register(r'reportes', views.ReportesViewSet, basename='reportes'
 urlpatterns = [
     path('health/', views.health_check, name='health-check'),
     path('me/', views.usuario_actual, name='usuario-actual'),
+    path('token/2fa/', views.two_factor_obtain, name='token-2fa-obtain'),
+    path('token/2fa/verify/', views.two_factor_verify, name='token-2fa-verify'),
     path('', include(router.urls)),  # Rutas globales (backward compatibility)
     path('catalogo/', include(router_catalogo.urls)),
     path('produccion/', include(router_produccion.urls)),

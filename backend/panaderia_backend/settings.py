@@ -317,3 +317,17 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
+
+# --- NUEVO: Configuración Email para 2FA (Brevo API) ---
+# Busca la variable tolerando espacios accidentales en Railway
+_brevo_key = os.getenv('BREVO_API_KEY')
+if not _brevo_key:
+    for k, v in os.environ.items():
+        if k.strip() == 'BREVO_API_KEY':
+            _brevo_key = v
+            break
+BREVO_API_KEY = _brevo_key
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'lapaloma.noreply@gmail.com')
+
+# Tiempo de expiración del código 2FA (minutos)
+TWO_FACTOR_CODE_EXPIRY_MINUTES = int(os.getenv('TWO_FACTOR_CODE_EXPIRY_MINUTES', '5'))

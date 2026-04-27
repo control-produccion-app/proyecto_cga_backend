@@ -244,6 +244,16 @@ class DetalleMovimientoSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
+class TwoFactorLoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
+
+class TwoFactorVerifySerializer(serializers.Serializer):
+    session_id = serializers.UUIDField()
+    code = serializers.CharField(max_length=6)
+
+
 class DetalleRepartoTurnoSerializer(serializers.ModelSerializer):
     cliente_nombre = serializers.CharField(
         source='id_cliente.nombre_cliente',
