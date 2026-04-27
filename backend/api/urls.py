@@ -18,6 +18,7 @@ router.register(r'productos', views.ProductoViewSet)
 router.register(r'pedidos', views.PedidoViewSet)
 router.register(r'detalles-pedido', views.DetallePedidoViewSet)
 router.register(r'movimientos', views.DetalleMovimientoViewSet)
+router.register(r'repartos-turno', views.DetalleRepartoTurnoViewSet)
 router.register(r'reportes', views.ReportesViewSet, basename='reportes')
 
 # Módulo Catálogo
@@ -33,6 +34,7 @@ router_produccion = DefaultRouter()
 router_produccion.register(r'jornadas', views.JornadaDiariaViewSet)
 router_produccion.register(r'producciones', views.ProduccionViewSet)
 router_produccion.register(r'cierres-turno', views.CierreTurnoViewSet)
+router_produccion.register(r'repartos-turno', views.DetalleRepartoTurnoViewSet)
 
 # Módulo Bodega
 router_bodega = DefaultRouter()

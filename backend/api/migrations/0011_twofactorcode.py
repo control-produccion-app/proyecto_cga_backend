@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('api', '0006_cierreturno_and_more'),
+        ('api', '0010_ajusta_rinde_reparto_turno'),
     ]
 
     operations = [
